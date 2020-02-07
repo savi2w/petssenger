@@ -1,0 +1,6 @@
+version: "3"
+services:
+  pricing-api:
+    build:
+      context: .
+      dockerfile: services/pricing/Dockerfile
