@@ -1,4 +1,4 @@
-package server
+package config
 
 import (
 	"net"
@@ -6,8 +6,8 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Listen serve an gRPC service
-func Listen() (*grpc.Server, error) {
+// ServerListen serve an gRPC service
+func ServerListen() (*grpc.Server, error) {
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
 		return nil, err
