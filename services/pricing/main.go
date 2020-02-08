@@ -1,16 +1,37 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"time"
 
 	"github.com/weslenng/petssenger/services/pricing/models"
 )
 
 func main() {
-	fees, err := models.GetPricingFees("SAO_PAULO")
+	start := time.Now()
+	fees, err := models.GetPricingFees("CURITIBA")
 	if err != nil {
 		panic("Error when getting pricing fees")
 	}
 
-	fmt.Printf("This is the pricing fees: %v", fees)
+	elapsed := time.Since(start)
+	log.Printf("GetPricingFees [1] %s Returned %v", elapsed, fees)
+	start = time.Now()
+
+	fees, err = models.GetPricingFees("CURITIBA")
+	if err != nil {
+		panic("Error when getting pricing fees")
+	}
+
+	elapsed = time.Since(start)
+	log.Printf("GetPricingFees [2] %s Returned %v", elapsed, fees)
+	start = time.Now()
+
+	fees, err = models.GetPricingFees("CURITIBA")
+	if err != nil {
+		panic("Error when getting pricing fees")
+	}
+
+	elapsed = time.Since(start)
+	log.Printf("GetPricingFees [3] %s Returned %v", elapsed, fees)
 }
