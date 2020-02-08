@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package pricing;
+
+enum City {
+  UNKNOWN = 0;
+  SAO_PAULO = 1;
+  SALVADOR = 2;
+  CURITIBA = 3;
+  RIO_DE_JANEIRO = 4;
+}
+
+service Pricing {
+  rpc GetPricingFeesByCity(GetPricingFeesByCityRequest)
+      returns (GetPricingFeesByCityResponse) {};
+  rpc IncreaseDynamicFees(IncreaseDynamicFeesRequest)
+      returns (IncreaseDynamicFeesResponse) {};
+}
+
+message GetPricingFeesByCityRequest { City city = 1; }
+
+message GetPricingFeesByCityResponse {
+  float base = 1;
+  float distance = 2;
+  float dynamic = 3;
+  float minute = 4;
+  float service = 5;
+}
+
+message IncreaseDynamicFeesRequest { float value = 1; }
+
+message IncreaseDynamicFeesResponse { float dynamic = 1; }
