@@ -23,10 +23,10 @@ func (*pricingServer) GetPricingFeesByCity(ctx context.Context, req *pricingpb.G
 }
 
 // PricingServerListen is a helper function to listen and gRPC server
-func PricingServerListen() (*grpc.Server, error) {
+func PricingServerListen() (net.Listener, *grpc.Server, error) {
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	ser := grpc.NewServer()
@@ -34,8 +34,8 @@ func PricingServerListen() (*grpc.Server, error) {
 
 	if err := ser.Serve(lis); err != nil {
 		lis.Close()
-		return nil, err
+		return nil, nil, err
 	}
 
-	return ser, nil
+	return lis, ser, nil
 }
