@@ -4,3 +4,20 @@ services:
     build:
       context: .
       dockerfile: services/pricing/Dockerfile
+    depends_on:
+      - "pricing-database"
+  pricing-database:
+    image: postgres
+    environment:
+      POSTGRES_DB: pricing
+      POSTGRES_PASSWORD: 04b76987bf0649519ef42136419d442e
+  pg-admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "root@postgresql.org"
+      PGADMIN_DEFAULT_PASSWORD: "root"
+    ports:
+      - "16543:80"
+    depends_on:
+      - pricing-database
+      
