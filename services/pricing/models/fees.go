@@ -56,7 +56,7 @@ func GetPricingFees(ID string) (*Fees, error) {
 		panic(err)
 	}
 
-	err = redis.Set(ID, val, 1*time.Minute).Err()
+	err = redis.Set(ID, val, 5*time.Minute).Err()
 	if err != nil {
 		panic(err)
 	}
