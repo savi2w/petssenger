@@ -6,10 +6,10 @@ option go_package="pricingpb";
 service Pricing {
   rpc GetPricingFeesByCity(GetPricingFeesByCityRequest)
       returns (GetPricingFeesByCityResponse) {};
-  rpc GetDynamicPricingFeesByCity(GetDynamicPricingFeesByCityRequest)
-      returns (GetDynamicPricingFeesByCityResponse) {};
-  rpc IncreaseDynamicFees(IncreaseDynamicFeesRequest)
-      returns (IncreaseDynamicFeesResponse) {};
+  // rpc GetDynamicPricingFeesByCity(GetDynamicPricingFeesByCityRequest)
+  //     returns (GetDynamicPricingFeesByCityResponse) {};
+  // rpc IncreaseDynamicFees(IncreaseDynamicFeesRequest)
+  //     returns (IncreaseDynamicFeesResponse) {};
 }
 
 message GetPricingFeesByCityRequest { string city = 1; }
@@ -22,10 +22,10 @@ message GetPricingFeesByCityResponse {
   int32 service = 5;
 }
 
-message GetDynamicPricingFeesByCityRequest { string city = 1; }
+// message GetDynamicPricingFeesByCityRequest { string city = 1; }
 
-message GetDynamicPricingFeesByCityResponse { int32 dynamic = 1; }
+// message GetDynamicPricingFeesByCityResponse { int32 dynamic = 1; }
 
-message IncreaseDynamicFeesRequest { int32 value = 1; }
+// message IncreaseDynamicFeesRequest { int32 value = 1; }
 
-message IncreaseDynamicFeesResponse { int32 dynamic = 1; }
+// message IncreaseDynamicFeesResponse { int32 dynamic = 1; }
