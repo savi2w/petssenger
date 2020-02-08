@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"log"
 
 	"github.com/go-pg/migrations/v7"
 	"github.com/weslenng/petssenger/services/pricing/config"
@@ -10,9 +9,9 @@ import (
 
 func main() {
 	flag.Parse()
-	conn := config.PostgresConnect()
+	conn := config.PricingPostgresConnect()
 	_, _, err := migrations.Run(conn, flag.Args()...)
 	if err != nil {
-		log.Fatalf("Error when migrating: %v", err)
+		panic("Error when migrating")
 	}
 }

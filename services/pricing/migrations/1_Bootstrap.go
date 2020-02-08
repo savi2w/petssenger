@@ -11,17 +11,17 @@ func init() {
 		fmt.Println("Migrating 1_Bootstrap...")
 
 		_, err := db.Exec(`
-			CREATE TABLE city (
-				id VARCHAR(32),
-				base_fees SMALLINT NOT NULL,
-				distance_fees SMALLINT NOT NULL,
-				dynamic_fees SMALLINT NOT NULL,
-				minute_fees SMALLINT NOT NULL,
-				service_fees SMALLINT NOT NULL,
+			CREATE TABLE fees (
+				id VARCHAR(28),
+				base INT NOT NULL,
+				distance INT NOT NULL,
+				dynamic INT NOT NULL,
+				minute INT NOT NULL,
+				service INT NOT NULL,
 				PRIMARY KEY(id)
 			);
 
-			INSERT INTO city (id, base_fees, distance_fees, dynamic_fees, minute_fees, service_fees) VALUES
+			INSERT INTO fees (id, base, distance, dynamic, minute, service) VALUES
 				('CURITIBA', 200, 50, 100, 80, 100),
 				('RIO_DE_JANEIRO', 300, 60, 100, 95, 140),
 				('SALVADOR', 150, 20, 100, 75, 120),
@@ -32,7 +32,7 @@ func init() {
 	}, func(db migrations.DB) error {
 		fmt.Println("Dropping 1_Bootstrap...")
 
-		_, err := db.Exec(("DROP TABLE city;"))
+		_, err := db.Exec(("DROP TABLE fees;"))
 		return err
 	})
 }

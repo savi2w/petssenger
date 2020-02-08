@@ -13,7 +13,7 @@ services:
       POSTGRES_DB: pricing
       POSTGRES_PASSWORD: 04b76987bf0649519ef42136419d442e
   pricing-redis:
-    image: "redis:alpine"
+    image: "sewenew/redis-protobuf"
 
   # pg-admin:
   #   image: dpage/pgadmin4

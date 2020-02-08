@@ -1,14 +1,16 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
-	"github.com/weslenng/petssenger/services/pricing/config"
+	"github.com/weslenng/petssenger/services/pricing/models"
 )
 
 func main() {
-	_, err := config.ServerListen()
+	fees, err := models.GetPricingFees("SAO_PAULO")
 	if err != nil {
-		log.Fatalf("Error when listening: %v", err)
+		panic("Error when getting pricing fees")
 	}
+
+	fmt.Printf("This is the pricing fees: %v", fees)
 }
