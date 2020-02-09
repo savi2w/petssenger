@@ -14,7 +14,10 @@ services:
       POSTGRES_PASSWORD: 04b76987bf0649519ef42136419d442e
   pricing-redis:
     image: "sewenew/redis-protobuf"
-
+  ride-api:
+    build:
+      context: .
+      dockerfile: services/ride/Dockerfile
   # pg-admin:
   #   image: dpage/pgadmin4
   #   environment:

@@ -1,2 +1,12 @@
+# dependencies
+node_modules
+
+# golang
+protos/*.go
+
 # misc
 .vscode
+
+# node
+protos/*.js
+protos/*.d.ts

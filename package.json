@@ -1,0 +1,23 @@
+{
+  "name": "petssenger",
+  "description": "Basically a Uber for pets",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weslenng/petssenger.git"
+  },
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://www.mit.edu/~amini/LICENSE.md"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/weslenng/petssenger/issues"
+  },
+  "homepage": "https://github.com/weslenng/petssenger#readme",
+  "workspaces": [
+    "services/*"
+  ]
+}
