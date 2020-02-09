@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"sync"
 
 	"github.com/go-pg/pg/v9"
@@ -10,13 +11,13 @@ import (
 	"github.com/weslenng/petssenger/services/pricing/worker"
 )
 
-type context struct {
+type environment struct {
 	pg    *pg.DB
 	redis *redis.Client
 }
 
-func (ctx context) startServer() {
-	lis, ser, err := server.PricingServerListen(ctx.pg, ctx.redis)
+func (env environment) startServer() {
+	lis, ser, err := server.PricingServerListen(env.pg, env.redis)
 	if err != nil {
 		panic(err)
 	}
@@ -25,33 +26,33 @@ func (ctx context) startServer() {
 	defer ser.GracefulStop()
 }
 
-func (ctx context) startWorker() {
-	err := worker.MainQueue.Consumer().Start(nil)
+func (env environment) startWorker() {
+	err := worker.MainQueue.Consumer().Start(context.Background())
 	if err != nil {
 		panic(err)
 	}
 }
 
 func main() {
-	ctx := &context{
+	env := &environment{
 		pg:    config.PricingPgConnect(),
 		redis: config.PricingRedisClient(),
 	}
 
-	defer ctx.pg.Close()
-	defer ctx.redis.Close()
+	defer env.pg.Close()
+	defer env.redis.Close()
 
 	var wg sync.WaitGroup
 	wg.Add(2)
 
 	go func() {
 		defer wg.Done()
-		ctx.startServer()
+		env.startServer()
 	}()
 
 	go func() {
 		defer wg.Done()
-		ctx.startWorker()
+		env.startWorker()
 	}()
 
 	wg.Wait()
