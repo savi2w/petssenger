@@ -1,3 +1,5 @@
+# Utility script to gen proto files
+
 protoc protos/*.proto --go_out=plugins=grpc:.
 
 yarn install
