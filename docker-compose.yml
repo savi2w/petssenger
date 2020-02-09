@@ -18,6 +18,8 @@ services:
     build:
       context: .
       dockerfile: services/ride/Dockerfile
+    ports:
+      - "3000:3000"
   # pg-admin:
   #   image: dpage/pgadmin4
   #   environment:

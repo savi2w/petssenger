@@ -23,7 +23,9 @@ RUN protoc *.proto \
   --ts_out="service=grpc-node:." \
   --grpc_out="."
 
-# build
+# run
 WORKDIR /petssenger/services/ride
 COPY services/ride/. .
+
+EXPOSE 3000
 CMD ["yarn", "start"]
