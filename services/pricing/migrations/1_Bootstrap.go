@@ -13,19 +13,19 @@ func init() {
 		_, err := db.Exec(`
 			CREATE TABLE fees (
 				id VARCHAR(28),
-				base INT NOT NULL,
-				distance INT NOT NULL,
-				dynamic INT NOT NULL,
-				minute INT NOT NULL,
-				service INT NOT NULL,
+				base NUMERIC NOT NULL,
+				distance NUMERIC NOT NULL,
+				dynamic NUMERIC NOT NULL,
+				minute NUMERIC NOT NULL,
+				service NUMERIC NOT NULL,
 				PRIMARY KEY(id)
 			);
 
 			INSERT INTO fees (id, base, distance, dynamic, minute, service) VALUES
-				('CURITIBA', 200, 50, 100, 80, 100),
-				('RIO_DE_JANEIRO', 300, 60, 100, 95, 140),
-				('SALVADOR', 150, 20, 100, 75, 120),
-				('SAO_PAULO', 350, 50, 100, 100, 75);
+				('CURITIBA', 2, 0.5, 1, 0.8, 1),
+				('RIO_DE_JANEIRO', 3, 0.6, 1, 0.95, 1.4),
+				('SALVADOR', 1.5, 0.2, 1, 0.75, 1.2),
+				('SAO_PAULO', 3.5, 0.5, 1, 1, 0.75);
 		`)
 
 		return err

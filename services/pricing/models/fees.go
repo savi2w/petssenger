@@ -12,10 +12,10 @@ import (
 // Fees represents a city-fees payload structure
 type Fees struct {
 	ID       string
-	Base     int32
-	Distance int32
-	Minute   int32
-	Service  int32
+	Base     float32
+	Distance float32
+	Minute   float32
+	Service  float32
 }
 
 // ProtoPricingFees transforms the type Fees in a protobuf message

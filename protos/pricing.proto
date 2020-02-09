@@ -16,16 +16,16 @@ message GetPricingFeesByCityRequest { string city = 1; }
 
 message GetPricingFeesByCityResponse {
   string id = 1;
-  int32 base = 2;
-  int32 distance = 3;
-  int32 minute = 4;
-  int32 service = 5;
+  float base = 2;
+  float distance = 3;
+  float minute = 4;
+  float service = 5;
 }
 
 // message GetDynamicPricingFeesByCityRequest { string city = 1; }
 
-// message GetDynamicPricingFeesByCityResponse { int32 dynamic = 1; }
+// message GetDynamicPricingFeesByCityResponse { float dynamic = 1; }
 
-// message IncreaseDynamicFeesRequest { int32 value = 1; }
+// message IncreaseDynamicFeesRequest { float value = 1; }
 
-// message IncreaseDynamicFeesResponse { int32 dynamic = 1; }
+// message IncreaseDynamicFeesResponse { float dynamic = 1; }

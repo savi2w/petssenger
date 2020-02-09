@@ -25,16 +25,12 @@ export const getEstimatePricing = async (ride: Ride): Promise<number> => {
   req.setCity(ride.city);
 
   const res = await cli.getPricingFeesByCityAsync(req);
-  const pricing = res?.toObject();
+  const pricing = res.toObject();
 
   const estimate =
-    pricing?.base +
-    (pricing?.minute * ride.time + pricing?.distance * ride.distance * 100) +
-    pricing?.service;
-
-  if (isNaN(estimate)) {
-    throw new TypeError('"estimate" must be a number');
-  }
+    pricing.base +
+    (pricing.minute * ride.time + pricing.distance * ride.distance * 1) +
+    pricing.service;
 
   return estimate;
 };
