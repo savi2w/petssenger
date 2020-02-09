@@ -3,6 +3,7 @@ import bluebird from "bluebird";
 
 import env from "../config/env";
 import { Ride } from "../controllers/estimate";
+import round from "../utils/round";
 
 import {
   GetPricingFeesByCityRequest,
@@ -32,5 +33,5 @@ export const getEstimatePricing = async (ride: Ride): Promise<number> => {
     (pricing.minute * ride.time + pricing.distance * ride.distance * 1) +
     pricing.service;
 
-  return estimate;
+  return round(estimate);
 };
