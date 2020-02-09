@@ -9,7 +9,7 @@ import (
 	pricingpb "github.com/weslenng/petssenger/protos"
 )
 
-// Fees payload structure
+// Fees represents a city-fees payload structure
 type Fees struct {
 	ID       string
 	Base     int32
@@ -29,7 +29,7 @@ func ProtoPricingFees(fees *Fees) *pricingpb.GetPricingFeesByCityResponse {
 	}
 }
 
-// GetPricingFees retrieve the ride FEES by a given city
+// GetPricingFees retrieve the ride fees by a given city
 func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
 	fees := &Fees{ID: ID}
 

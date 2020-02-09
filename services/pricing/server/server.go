@@ -39,7 +39,7 @@ func (ps *pricingServer) GetPricingFeesByCity(ctx context.Context, req *pricingp
 	return proto, nil
 }
 
-// PricingServerListen is a helper function to lis and gRPC server
+// PricingServerListen is a helper function to listen an pricing gRPC server
 func PricingServerListen(pg *pg.DB, redis *redis.Client) (net.Listener, *grpc.Server, error) {
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
