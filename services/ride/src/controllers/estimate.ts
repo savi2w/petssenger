@@ -35,7 +35,7 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
   try {
     pricing = await getEstimatePricing(ride);
   } catch (err) {
-    ctx.status = 502;
+    ctx.status = 500;
     ctx.body = {
       message: err.message,
       payload: null
