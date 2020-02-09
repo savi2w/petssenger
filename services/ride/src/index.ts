@@ -1,3 +1,6 @@
+import env from "./config/env";
 import server from "./server";
 
-server().listen(3000);
+Promise.resolve().then(() => {
+  server().listen(env.port);
+});

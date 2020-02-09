@@ -10,7 +10,7 @@ const server = (): Koa => {
   app.use(bodyParser());
   const router = new Router();
 
-  router.post("/", estimate);
+  router.post("/ride/estimate", estimate);
 
   app.use(router.routes());
   app.use(router.allowedMethods());

@@ -40,9 +40,18 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
       message: err.message,
       payload: null
     };
+
+    return next();
   }
 
-  ctx.body = pricing;
+  ctx.body = {
+    message: null,
+    payload: {
+      pricing
+    }
+  };
+
+  return next();
 };
 
 export default estimate;

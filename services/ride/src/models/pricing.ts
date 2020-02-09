@@ -1,26 +1,40 @@
+import grpc from "grpc";
+import bluebird from "bluebird";
+
+import env from "../config/env";
 import { Ride } from "../controllers/estimate";
 
-import grpc from "grpc";
-import { GetPricingFeesByCityRequest } from "../../../../protos/pricing_pb";
+import {
+  GetPricingFeesByCityRequest,
+  GetPricingFeesByCityResponse
+} from "../../../../protos/pricing_pb";
 import { PricingClient } from "../../../../protos/pricing_grpc_pb";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getEstimatePricing = (ride: Ride): Promise<any> =>
-  new Promise((resolve, reject) => {
-    const cli = new PricingClient(
-      "pricing-api:50051",
-      grpc.credentials.createInsecure()
-    );
+interface PricingClientAsync extends PricingClient {
+  getPricingFeesByCityAsync(
+    req: GetPricingFeesByCityRequest
+  ): Promise<GetPricingFeesByCityResponse>;
+}
 
-    const req = new GetPricingFeesByCityRequest();
-    req.setCity(ride.city);
+const cli = bluebird.promisifyAll(
+  new PricingClient(env.pricing, grpc.credentials.createInsecure())
+) as PricingClientAsync;
 
-    cli.getPricingFeesByCity(req, (err, res) => {
-      if (err) {
-        reject(err);
-        return undefined;
-      }
+export const getEstimatePricing = async (ride: Ride): Promise<number> => {
+  const req = new GetPricingFeesByCityRequest();
+  req.setCity(ride.city);
 
-      resolve(res?.toObject());
-    });
-  });
+  const res = await cli.getPricingFeesByCityAsync(req);
+  const pricing = res?.toObject();
+
+  const estimate =
+    pricing?.base +
+    (pricing?.minute * ride.time + pricing?.distance * ride.distance * 100) +
+    pricing?.service;
+
+  if (isNaN(estimate)) {
+    throw new TypeError('"estimate" must be a number');
+  }
+
+  return estimate;
+};
