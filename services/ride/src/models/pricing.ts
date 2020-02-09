@@ -5,32 +5,29 @@ import env from "../config/env";
 import { Ride } from "../controllers/estimate";
 import round from "../utils/round";
 
-import messages from "../../../../protos/pricing_pb";
-import { PricingClient } from "../../../../protos/pricing_grpc_pb";
-
-interface PricingClientAsync extends PricingClient {
-  getPricingFeesByCityAsync(
-    req: messages.GetFeesByCity
-  ): Promise<messages.GetPricingFeesByCityResponse>;
-
-  getDynamicFeesByCityAsync(
-    req: messages.GetFeesByCity
-  ): Promise<messages.GetDynamicFeesByCityResponse>;
-}
+import {
+  PricingClient,
+  PricingClientAsync,
+  GetFeesByCity
+} from "./pricing.async";
 
 const cli = bluebird.promisifyAll(
   new PricingClient(env.pricing, grpc.credentials.createInsecure())
 ) as PricingClientAsync;
 
+const getDynamicFees = async (req: GetFeesByCity): Promise<number> => {
+  const res = await cli.getDynamicFeesByCityAsync(req);
+  return res.getDynamic();
+};
+
 export const getEstimatePricing = async (ride: Ride): Promise<number> => {
-  const req = new messages.GetFeesByCity();
+  const req = new GetFeesByCity();
   req.setCity(ride.city);
 
-  const pri = await cli.getPricingFeesByCityAsync(req);
-  const pricing = pri.toObject();
+  const res = await cli.getPricingFeesByCityAsync(req);
+  const pricing = res.toObject();
 
-  const dyn = await cli.getDynamicFeesByCityAsync(req);
-  const dynamic = dyn.getDynamic();
+  const dynamic = await getDynamicFees(req);
 
   const estimate =
     pricing.base +
