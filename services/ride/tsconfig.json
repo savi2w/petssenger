@@ -3,6 +3,7 @@
     "baseUrl": "src",
     "esModuleInterop": true,
     "incremental": true,
+    "lib": ["dom"],
     "module": "commonjs",
     "outDir": "dist",
     "resolveJsonModule": true,

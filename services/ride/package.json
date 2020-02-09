@@ -9,9 +9,13 @@
     "test": "jest --coverage"
   },
   "author": "weslenng",
-  "dependencies": {},
+  "dependencies": {
+    "google-protobuf": "^3.11.3",
+    "grpc": "^1.24.2"
+  },
   "devDependencies": {
     "@types/chai": "^4.2.8",
+    "@types/google-protobuf": "^3.7.2",
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.0",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
@@ -20,6 +24,7 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "grpc-tools": "^1.8.1",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.0",

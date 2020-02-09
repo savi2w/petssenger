@@ -16,7 +16,12 @@ RUN yarn --pure-lockfile
 # proto files
 WORKDIR /petssenger/protos
 COPY protos/pricing.proto ./
-RUN protoc *.proto --plugin="protoc-gen-ts=../node_modules/.bin/protoc-gen-ts" --js_out="import_style=commonjs,binary:." --ts_out="."
+RUN protoc *.proto \
+  --plugin="protoc-gen-ts=../node_modules/.bin/protoc-gen-ts" \
+  --plugin="protoc-gen-grpc=../node_modules/.bin/grpc_tools_node_protoc_plugin" \
+  --js_out="import_style=commonjs,binary:." \
+  --ts_out="service=grpc-node:." \
+  --grpc_out="."
 
 # build
 WORKDIR /petssenger/services/ride
