@@ -21,7 +21,10 @@ type pricingServer struct {
 
 const addr = "0.0.0.0:50051"
 
-func (ps *pricingServer) GetPricingFeesByCity(ctx context.Context, req *pricingpb.GetPricingFeesByCityRequest) (*pricingpb.GetPricingFeesByCityResponse, error) {
+func (ps *pricingServer) GetPricingFeesByCity(
+	ctx context.Context,
+	req *pricingpb.GetFeesByCity,
+) (*pricingpb.GetPricingFeesByCityResponse, error) {
 	city := req.GetCity()
 	fees, err := models.GetPricingFees(city, ps.pg, ps.redis)
 	if err != nil {
@@ -36,6 +39,27 @@ func (ps *pricingServer) GetPricingFeesByCity(ctx context.Context, req *pricingp
 	}
 
 	proto := models.ProtoPricingFees(fees)
+	return proto, nil
+}
+
+func (ps *pricingServer) GetDynamicFeesByCity(
+	ctx context.Context,
+	req *pricingpb.GetFeesByCity,
+) (*pricingpb.GetDynamicFeesByCityResponse, error) {
+	city := req.GetCity()
+	fees, err := models.GetDynamicFees(city, ps.pg)
+	if err != nil {
+		if err == pg.ErrNoRows {
+			return nil, status.Errorf(
+				codes.NotFound,
+				fmt.Sprintf("The city %v was not found", city),
+			)
+		}
+
+		panic(err)
+	}
+
+	proto := models.ProtoDynamicFees(fees)
 	return proto, nil
 }
 

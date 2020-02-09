@@ -14,11 +14,12 @@ type Fees struct {
 	ID       string
 	Base     float32
 	Distance float32
+	Dynamic  float32
 	Minute   float32
 	Service  float32
 }
 
-// ProtoPricingFees transforms the type Fees in a protobuf message
+// ProtoPricingFees transforms the type Fees in a GetPricingFeesByCityResponse
 func ProtoPricingFees(fees *Fees) *pricingpb.GetPricingFeesByCityResponse {
 	return &pricingpb.GetPricingFeesByCityResponse{
 		Id:       fees.ID,
@@ -31,7 +32,7 @@ func ProtoPricingFees(fees *Fees) *pricingpb.GetPricingFeesByCityResponse {
 
 // GetPricingFees retrieve the ride fees by a given city
 func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
-	fees := &Fees{ID: ID}
+	fees := &Fees{}
 
 	val, err := redis.Get(ID).Bytes()
 	if err == nil {
@@ -41,7 +42,14 @@ func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
 		}
 	}
 
-	err = pg.Select(fees)
+	err = pg.Model(fees).Column(
+		"id",
+		"base",
+		"distance",
+		"minute",
+		"service",
+	).Where("id = ?", ID).Select()
+
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +60,25 @@ func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
 	}
 
 	err = redis.Set(ID, val, 5*time.Minute).Err()
+	if err != nil {
+		return nil, err
+	}
+
+	return fees, nil
+}
+
+// ProtoDynamicFees transforms the type Fees in a GetDynamicFeesByCityResponse
+func ProtoDynamicFees(fees *Fees) *pricingpb.GetDynamicFeesByCityResponse {
+	return &pricingpb.GetDynamicFeesByCityResponse{
+		Dynamic: fees.Dynamic,
+	}
+}
+
+// GetDynamicFees retrieve the dynamic fees by a given city
+func GetDynamicFees(ID string, pg *pg.DB) (*Fees, error) {
+	fees := &Fees{}
+
+	err := pg.Model(fees).Column("dynamic").Where("id = ?", ID).Select()
 	if err != nil {
 		return nil, err
 	}
