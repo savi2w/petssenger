@@ -29,6 +29,9 @@ export const getEstimatePricing = async (ride: Ride): Promise<number> => {
 
   const dynamic = await getDynamicFees(req);
 
+  // Test purpose
+  await cli.increaseDynamicFeesByCityAsync(req);
+
   const estimate =
     pricing.base +
     (pricing.minute * ride.time + pricing.distance * ride.distance * dynamic) +

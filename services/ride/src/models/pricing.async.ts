@@ -1,7 +1,8 @@
 import {
   GetFeesByCity,
   GetPricingFeesByCityResponse,
-  GetDynamicFeesByCityResponse
+  GetDynamicFeesByCityResponse,
+  Empty
 } from "../../../../protos/pricing_pb";
 
 import { PricingClient } from "../../../../protos/pricing_grpc_pb";
@@ -17,4 +18,6 @@ export interface PricingClientAsync extends PricingClient {
   getDynamicFeesByCityAsync(
     req: GetFeesByCity
   ): Promise<GetDynamicFeesByCityResponse>;
+
+  increaseDynamicFeesByCityAsync(req: GetFeesByCity): Promise<Empty>;
 }

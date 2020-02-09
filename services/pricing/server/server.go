@@ -79,7 +79,7 @@ func (ps *pricingServer) IncreaseDynamicFeesByCity(
 	}
 
 	job := worker.DecreaseDynamicFees.WithArgs(context.Background(), city)
-	job.Delay = 5 * time.Second
+	job.Delay = 5 * time.Minute
 
 	err = worker.MainQueue.Add(job)
 	if err != nil {
