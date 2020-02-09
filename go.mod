@@ -9,5 +9,6 @@ require (
 	github.com/go-redis/redis/v7 v7.0.0-beta.6
 	github.com/golang/protobuf v1.3.3
 	github.com/vmihailenco/msgpack/v4 v4.3.7
+	github.com/vmihailenco/taskq/v2 v2.2.3
 	google.golang.org/grpc v1.27.1
 )

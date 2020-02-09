@@ -8,6 +8,8 @@ service Pricing {
       returns (GetPricingFeesByCityResponse) {};
   rpc GetDynamicFeesByCity(GetFeesByCity)
       returns (GetDynamicFeesByCityResponse) {};
+  rpc IncreaseDynamicFeesByCity(GetFeesByCity)
+      returns (Empty) {};
 }
 
 message GetFeesByCity { string city = 1; }
@@ -21,3 +23,5 @@ message GetPricingFeesByCityResponse {
 }
 
 message GetDynamicFeesByCityResponse { float dynamic = 1; }
+
+message Empty {}
