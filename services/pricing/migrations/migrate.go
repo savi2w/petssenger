@@ -9,7 +9,7 @@ import (
 
 func main() {
 	flag.Parse()
-	conn := config.PricingPostgresConnect()
+	conn := config.PricingPgConnect()
 	_, _, err := migrations.Run(conn, flag.Args()...)
 	if err != nil {
 		panic("Error when migrating")

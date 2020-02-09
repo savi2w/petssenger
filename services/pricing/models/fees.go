@@ -3,9 +3,10 @@ package models
 import (
 	"time"
 
+	"github.com/go-pg/pg/v9"
+	"github.com/go-redis/redis/v7"
 	"github.com/vmihailenco/msgpack/v4"
 	pricingpb "github.com/weslenng/petssenger/protos"
-	"github.com/weslenng/petssenger/services/pricing/config"
 )
 
 // Fees payload structure
@@ -29,11 +30,8 @@ func ProtoPricingFees(fees *Fees) *pricingpb.GetPricingFeesByCityResponse {
 }
 
 // GetPricingFees retrieve the ride FEES by a given city
-func GetPricingFees(ID string) (*Fees, error) {
+func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
 	fees := &Fees{ID: ID}
-
-	redis := config.PricingRedisClient()
-	defer redis.Close()
 
 	val, err := redis.Get(ID).Bytes()
 	if err == nil {
@@ -43,23 +41,20 @@ func GetPricingFees(ID string) (*Fees, error) {
 		}
 	}
 
-	postgres := config.PricingPostgresConnect()
-	defer postgres.Close()
-
-	err = postgres.Select(fees)
+	err = pg.Select(fees)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	val, err = msgpack.Marshal(fees)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	err = redis.Set(ID, val, 5*time.Minute).Err()
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	return fees, err
+	return fees, nil
 }
