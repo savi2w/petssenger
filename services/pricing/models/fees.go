@@ -107,9 +107,6 @@ func DecreaseDynamicFees(ID string, pg *pg.DB) error {
 	fees := &Fees{}
 
 	// invalid memory address or nil pointer dereference
-	// pg = config.PricingPgConnect()
-	// defer pg.Close()
-
 	_, err := pg.Model(fees).Set("dynamic = dynamic - ?", variation).Where("id = ? AND dynamic > ?", ID, minimal).Update()
 	if err != nil {
 		return err
