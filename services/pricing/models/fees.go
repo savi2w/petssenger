@@ -7,7 +7,6 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/vmihailenco/msgpack/v4"
 	pricingpb "github.com/weslenng/petssenger/protos"
-	"github.com/weslenng/petssenger/services/pricing/config"
 )
 
 // Fees represents a city-fees payload structure
@@ -108,8 +107,8 @@ func DecreaseDynamicFees(ID string, pg *pg.DB) error {
 	fees := &Fees{}
 
 	// invalid memory address or nil pointer dereference
-	pg = config.PricingPgConnect()
-	defer pg.Close()
+	// pg = config.PricingPgConnect()
+	// defer pg.Close()
 
 	_, err := pg.Model(fees).Set("dynamic = dynamic - ?", variation).Where("id = ? AND dynamic > ?", ID, minimal).Update()
 	if err != nil {

@@ -55,5 +55,6 @@ func main() {
 		env.startWorker()
 	}()
 
+	defer worker.MainQueue.Close()
 	wg.Wait()
 }
