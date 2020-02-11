@@ -106,7 +106,7 @@ func DecreaseDynamicFees(ID string) error {
 
 	_, err := db.Model(fees).Set(
 		"dynamic = dynamic - ?",
-		config.Default.DynamicFeesIncreaseRate,
+		config.Default.DynamicFeesDecreaseRate,
 	).Where(
 		"id = ? AND dynamic > ?",
 		ID,

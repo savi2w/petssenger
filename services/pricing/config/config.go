@@ -11,6 +11,7 @@ type Config struct {
 	Addr                    string
 	DynamicFeesMinimumValue float32
 	DynamicFeesIncreaseRate float32
+	DynamicFeesDecreaseRate float32
 	DynamicFeesDecreaseTime time.Duration
 	PgConnOpts              pg.Options
 	RedisAddr               string
@@ -23,6 +24,7 @@ type Config struct {
 var Default = Config{
 	Addr:                    "0.0.0.0:50051",
 	DynamicFeesMinimumValue: 1,
+	DynamicFeesDecreaseRate: 0.1,
 	DynamicFeesIncreaseRate: 0.1,
 	DynamicFeesDecreaseTime: 5 * time.Second,
 	PgConnOpts: pg.Options{
