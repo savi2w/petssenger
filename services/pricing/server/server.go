@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/go-pg/pg/v9"
-	"github.com/go-redis/redis/v7"
-	pricingpb "github.com/weslenng/petssenger/protos"
+	pb "github.com/weslenng/petssenger/protos"
+	"github.com/weslenng/petssenger/services/pricing/config"
 	"github.com/weslenng/petssenger/services/pricing/models"
 	"github.com/weslenng/petssenger/services/pricing/worker"
 	"google.golang.org/grpc"
@@ -16,20 +16,15 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type pricingServer struct {
-	pg    *pg.DB
-	redis *redis.Client
-}
+type pricingServer struct{}
 
-const addr = "0.0.0.0:50051"
-
-func (ps *pricingServer) GetPricingFeesByCity(
+func (*pricingServer) GetPricingFeesByCity(
 	ctx context.Context,
-	req *pricingpb.GetFeesByCity,
-) (*pricingpb.GetPricingFeesByCityResponse, error) {
+	req *pb.GetFeesByCity,
+) (*pb.GetPricingFeesByCityResponse, error) {
 	city := req.GetCity()
 
-	fees, err := models.GetPricingFees(city, ps.pg, ps.redis)
+	fees, err := models.GetPricingFees(city)
 	if err != nil {
 		if err == pg.ErrNoRows {
 			return nil, status.Errorf(
@@ -45,13 +40,13 @@ func (ps *pricingServer) GetPricingFeesByCity(
 	return proto, nil
 }
 
-func (ps *pricingServer) GetDynamicFeesByCity(
+func (*pricingServer) GetDynamicFeesByCity(
 	ctx context.Context,
-	req *pricingpb.GetFeesByCity,
-) (*pricingpb.GetDynamicFeesByCityResponse, error) {
+	req *pb.GetFeesByCity,
+) (*pb.GetDynamicFeesByCityResponse, error) {
 	city := req.GetCity()
 
-	fees, err := models.GetDynamicFees(city, ps.pg)
+	fees, err := models.GetDynamicFees(city)
 	if err != nil {
 		if err == pg.ErrNoRows {
 			return nil, status.Errorf(
@@ -67,46 +62,41 @@ func (ps *pricingServer) GetDynamicFeesByCity(
 	return proto, nil
 }
 
-func (ps *pricingServer) IncreaseDynamicFeesByCity(
+func (*pricingServer) IncreaseDynamicFeesByCity(
 	ctx context.Context,
-	req *pricingpb.GetFeesByCity,
-) (*pricingpb.Empty, error) {
+	req *pb.GetFeesByCity,
+) (*pb.Empty, error) {
 	city := req.GetCity()
 
-	err := models.IncreaseDynamicFees(city, ps.pg)
+	err := models.IncreaseDynamicFees(city)
 	if err != nil {
 		panic(err)
 	}
 
-	job := worker.DecreaseDynamicFees.WithArgs(context.Background(), city, ps.pg)
-	job.Delay = 5 * time.Second
+	job := worker.DecreaseDynamicFees.WithArgs(context.Background(), city)
+	job.Delay = 5 * time.Minute
 
 	err = worker.MainQueue.Add(job)
 	if err != nil {
 		panic(err)
 	}
 
-	return &pricingpb.Empty{}, nil
+	return &pb.Empty{}, nil
 }
 
 // PricingServerListen is a helper function to listen an pricing gRPC server
-func PricingServerListen(pg *pg.DB, redis *redis.Client) (net.Listener, *grpc.Server, error) {
-	lis, err := net.Listen("tcp", addr)
+func PricingServerListen() (net.Listener, error) {
+	lis, err := net.Listen("tcp", config.Default.Addr)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	ser := grpc.NewServer()
-	ps := &pricingServer{
-		pg:    pg,
-		redis: redis,
-	}
-
-	pricingpb.RegisterPricingServer(ser, ps)
-	if err := ser.Serve(lis); err != nil {
+	server := grpc.NewServer()
+	pb.RegisterPricingServer(server, &pricingServer{})
+	if err := server.Serve(lis); err != nil {
 		lis.Close()
-		return nil, nil, err
+		return nil, err
 	}
 
-	return lis, ser, nil
+	return lis, nil
 }

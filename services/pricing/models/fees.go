@@ -3,10 +3,9 @@ package models
 import (
 	"time"
 
-	"github.com/go-pg/pg/v9"
-	"github.com/go-redis/redis/v7"
 	"github.com/vmihailenco/msgpack/v4"
 	pricingpb "github.com/weslenng/petssenger/protos"
+	"github.com/weslenng/petssenger/services/pricing/redis"
 )
 
 // Fees represents a city-fees payload structure
@@ -31,10 +30,10 @@ func ProtoPricingFees(fees *Fees) *pricingpb.GetPricingFeesByCityResponse {
 }
 
 // GetPricingFees retrieve the ride fees by a given city
-func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
+func GetPricingFees(ID string) (*Fees, error) {
 	fees := &Fees{}
 
-	val, err := redis.Get(ID).Bytes()
+	val, err := redis.Client.Get(ID).Bytes()
 	if err == nil {
 		err = msgpack.Unmarshal(val, fees)
 		if err == nil {
@@ -42,7 +41,7 @@ func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
 		}
 	}
 
-	err = pg.Model(fees).Column(
+	err = db.Model(fees).Column(
 		"id",
 		"base",
 		"distance",
@@ -59,7 +58,7 @@ func GetPricingFees(ID string, pg *pg.DB, redis *redis.Client) (*Fees, error) {
 		return nil, err
 	}
 
-	err = redis.Set(ID, val, 5*time.Minute).Err()
+	err = redis.Client.Set(ID, val, 1*time.Minute).Err()
 	if err != nil {
 		return nil, err
 	}
@@ -75,10 +74,10 @@ func ProtoDynamicFees(fees *Fees) *pricingpb.GetDynamicFeesByCityResponse {
 }
 
 // GetDynamicFees retrieve the dynamic fees by a given city
-func GetDynamicFees(ID string, pg *pg.DB) (*Fees, error) {
+func GetDynamicFees(ID string) (*Fees, error) {
 	fees := &Fees{}
 
-	err := pg.Model(fees).Column("dynamic").Where("id = ?", ID).Select()
+	err := db.Model(fees).Column("dynamic").Where("id = ?", ID).Select()
 	if err != nil {
 		return nil, err
 	}
@@ -86,13 +85,13 @@ func GetDynamicFees(ID string, pg *pg.DB) (*Fees, error) {
 	return fees, nil
 }
 
-const variation = 0.1
+var variation float32 = 0.1
 
 // IncreaseDynamicFees increase a dynamic fees by a given city
-func IncreaseDynamicFees(ID string, pg *pg.DB) error {
+func IncreaseDynamicFees(ID string) error {
 	fees := &Fees{}
 
-	_, err := pg.Model(fees).Set("dynamic = dynamic + ?", variation).Where("id = ?", ID).Update()
+	_, err := db.Model(fees).Set("dynamic = dynamic + ?", variation).Where("id = ?", ID).Update()
 	if err != nil {
 		return err
 	}
@@ -100,14 +99,14 @@ func IncreaseDynamicFees(ID string, pg *pg.DB) error {
 	return nil
 }
 
-const minimal = 1
+var minimal float32 = 1
 
 // DecreaseDynamicFees decrease a dynamic fees by a given city (used in worker)
-func DecreaseDynamicFees(ID string, pg *pg.DB) error {
+func DecreaseDynamicFees(ID string) error {
 	fees := &Fees{}
 
 	// invalid memory address or nil pointer dereference
-	_, err := pg.Model(fees).Set("dynamic = dynamic - ?", variation).Where("id = ? AND dynamic > ?", ID, minimal).Update()
+	_, err := db.Model(fees).Set("dynamic = dynamic - ?", variation).Where("id = ? AND dynamic > ?", ID, minimal).Update()
 	if err != nil {
 		return err
 	}
