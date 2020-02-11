@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net"
-	"time"
 
 	"github.com/go-pg/pg/v9"
 	pb "github.com/weslenng/petssenger/protos"
@@ -74,7 +73,7 @@ func (*pricingServer) IncreaseDynamicFeesByCity(
 	}
 
 	job := worker.DecreaseDynamicFees.WithArgs(context.Background(), city)
-	job.Delay = 5 * time.Minute
+	job.Delay = config.Default.DynamicFeesDecreaseTime
 
 	err = worker.MainQueue.Add(job)
 	if err != nil {

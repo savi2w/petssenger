@@ -1,10 +1,9 @@
 package worker
 
 import (
-	"time"
-
 	"github.com/vmihailenco/taskq/v2"
 	"github.com/vmihailenco/taskq/v2/redisq"
+	"github.com/weslenng/petssenger/services/pricing/config"
 	"github.com/weslenng/petssenger/services/pricing/models"
 	"github.com/weslenng/petssenger/services/pricing/redis"
 )
@@ -21,7 +20,7 @@ var (
 	DecreaseDynamicFees = taskq.RegisterTask(&taskq.TaskOptions{
 		Name:       "decrease-dynamic-fees",
 		Handler:    models.DecreaseDynamicFees,
-		RetryLimit: 3,
-		MinBackoff: 3 * time.Second,
+		RetryLimit: config.Default.WorkerRetryLimit,
+		MinBackoff: config.Default.WorkerRetryDelay,
 	})
 )

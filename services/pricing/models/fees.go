@@ -1,10 +1,9 @@
 package models
 
 import (
-	"time"
-
 	"github.com/vmihailenco/msgpack/v4"
 	pricingpb "github.com/weslenng/petssenger/protos"
+	"github.com/weslenng/petssenger/services/pricing/config"
 	"github.com/weslenng/petssenger/services/pricing/redis"
 )
 
@@ -58,7 +57,7 @@ func GetPricingFees(ID string) (*Fees, error) {
 		return nil, err
 	}
 
-	err = redis.Client.Set(ID, val, 1*time.Minute).Err()
+	err = redis.Client.Set(ID, val, config.Default.RedisExpTime).Err()
 	if err != nil {
 		return nil, err
 	}
@@ -85,13 +84,15 @@ func GetDynamicFees(ID string) (*Fees, error) {
 	return fees, nil
 }
 
-var variation float32 = 0.1
-
 // IncreaseDynamicFees increase a dynamic fees by a given city
 func IncreaseDynamicFees(ID string) error {
 	fees := &Fees{}
 
-	_, err := db.Model(fees).Set("dynamic = dynamic + ?", variation).Where("id = ?", ID).Update()
+	_, err := db.Model(fees).Set(
+		"dynamic = dynamic + ?",
+		config.Default.DynamicFeesIncreaseRate,
+	).Where("id = ?", ID).Update()
+
 	if err != nil {
 		return err
 	}
@@ -99,14 +100,19 @@ func IncreaseDynamicFees(ID string) error {
 	return nil
 }
 
-var minimal float32 = 1
-
 // DecreaseDynamicFees decrease a dynamic fees by a given city (used in worker)
 func DecreaseDynamicFees(ID string) error {
 	fees := &Fees{}
 
-	// invalid memory address or nil pointer dereference
-	_, err := db.Model(fees).Set("dynamic = dynamic - ?", variation).Where("id = ? AND dynamic > ?", ID, minimal).Update()
+	_, err := db.Model(fees).Set(
+		"dynamic = dynamic - ?",
+		config.Default.DynamicFeesIncreaseRate,
+	).Where(
+		"id = ? AND dynamic > ?",
+		ID,
+		config.Default.DynamicFeesMinimumValue,
+	).Update()
+
 	if err != nil {
 		return err
 	}
