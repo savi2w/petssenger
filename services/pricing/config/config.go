@@ -9,10 +9,10 @@ import (
 // Config is a structure for a common configuration of a service
 type Config struct {
 	Addr                    string
-	DynamicFeesMinimumValue float32
 	DynamicFeesIncreaseRate float32
 	DynamicFeesDecreaseRate float32
 	DynamicFeesDecreaseTime time.Duration
+	DynamicFeesMinimumValue float32
 	PgConnOpts              pg.Options
 	RedisAddr               string
 	RedisExpTime            time.Duration
@@ -23,10 +23,10 @@ type Config struct {
 // Default contains a common configuration for a service
 var Default = Config{
 	Addr:                    "0.0.0.0:50051",
-	DynamicFeesMinimumValue: 1,
-	DynamicFeesDecreaseRate: 0.1,
 	DynamicFeesIncreaseRate: 0.1,
-	DynamicFeesDecreaseTime: 5 * time.Second,
+	DynamicFeesDecreaseRate: 0.1,
+	DynamicFeesDecreaseTime: 5 * time.Minute,
+	DynamicFeesMinimumValue: 1,
 	PgConnOpts: pg.Options{
 		Addr:     "pricing-postgres:5432",
 		User:     "postgres",
