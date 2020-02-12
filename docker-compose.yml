@@ -1,5 +1,11 @@
 version: "3"
 services:
+  playground:
+    build:
+      context: .
+      dockerfile: playground/Dockerfile
+    ports:
+      - "3000:3000"
   pricing-api:
     build:
       context: .
@@ -8,22 +14,20 @@ services:
       - "pricing-postgres"
       - "pricing-redis"
   pricing-postgres:
-    image: "postgres:alpine"
+    image: "postgres:12.1-alpine"
     environment:
       POSTGRES_DB: pricing
       POSTGRES_PASSWORD: 04b76987bf0649519ef42136419d442e
   pricing-redis:
-    image: "redis:alpine"
+    image: "redis:6.0-rc1-alpine"
   ride-api:
     build:
       context: .
       dockerfile: services/ride/Dockerfile
+  pg-admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "root@postgresql.org"
+      PGADMIN_DEFAULT_PASSWORD: "root"
     ports:
-      - "3000:3000"
-  # pg-admin:
-  #   image: dpage/pgadmin4
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: "root@postgresql.org"
-  #     PGADMIN_DEFAULT_PASSWORD: "root"
-  #   ports:
-  #     - "16543:80"
+      - "3001:80"

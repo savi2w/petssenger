@@ -1,10 +1,9 @@
-FROM golang:stretch
+FROM golang:1.14rc1-stretch
 LABEL maintainer="weslenng"
 
 # system setup
 RUN apt-get update
-RUN apt-get install -y protobuf-compiler
-RUN apt-get install -y golang-protobuf-extensions-dev
+RUN apt-get install -y protobuf-compiler golang-protobuf-extensions-dev
 
 # proto files
 WORKDIR /petssenger/protos

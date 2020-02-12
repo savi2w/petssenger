@@ -6,7 +6,7 @@ import (
 	"github.com/go-pg/pg/v9"
 )
 
-// Config is a structure for a common configuration of a service
+// Config is a structure for a common configuration of a pricing service
 type Config struct {
 	Addr                    string
 	DynamicFeesIncreaseRate float32
@@ -20,7 +20,7 @@ type Config struct {
 	WorkerRetryLimit        int
 }
 
-// Default contains a common configuration for a service
+// Default contains a common configuration for a pricing service
 var Default = Config{
 	Addr:                    "0.0.0.0:50051",
 	DynamicFeesIncreaseRate: 0.1,

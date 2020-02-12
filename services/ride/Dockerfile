@@ -1,4 +1,4 @@
-FROM node:stretch
+FROM node:12.15.0-stretch
 LABEL maintainer="weslenng"
 
 # system setup
@@ -27,5 +27,5 @@ RUN protoc *.proto \
 WORKDIR /petssenger/services/ride
 COPY services/ride/. .
 
-EXPOSE 3000
+EXPOSE 3001
 CMD ["yarn", "start"]

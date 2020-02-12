@@ -7,7 +7,7 @@ import (
 
 var db *pg.DB
 
-// InitDB initialize a global postgres connection in a models package
+// InitDB initialize a global postgres connection in a models context
 func InitDB() *pg.DB {
 	db = pg.Connect(&config.Default.PgConnOpts)
 	return db

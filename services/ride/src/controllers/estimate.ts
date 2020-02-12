@@ -47,7 +47,8 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
   ctx.body = {
     message: null,
     payload: {
-      pricing
+      pricing,
+      ride
     }
   };
 
