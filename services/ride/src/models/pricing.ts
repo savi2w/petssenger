@@ -8,12 +8,20 @@ import round from "../utils/round";
 import {
   PricingClient,
   PricingClientAsync,
-  GetFeesByCity
-} from "./pricing.async";
+  GetFeesByCity,
+  GetPricingFeesByCityResponse
+} from "./interfaces";
 
 const cli = bluebird.promisifyAll(
   new PricingClient(env.pricing, grpc.credentials.createInsecure())
 ) as PricingClientAsync;
+
+const getPricing = async (
+  req: GetFeesByCity
+): Promise<GetPricingFeesByCityResponse.AsObject> => {
+  const res = await cli.getPricingFeesByCityAsync(req);
+  return res.toObject();
+};
 
 const getDynamicFees = async (req: GetFeesByCity): Promise<number> => {
   const res = await cli.getDynamicFeesByCityAsync(req);
@@ -24,13 +32,8 @@ export const getEstimatePricing = async (ride: Ride): Promise<number> => {
   const req = new GetFeesByCity();
   req.setCity(ride.city);
 
-  const res = await cli.getPricingFeesByCityAsync(req);
-  const pricing = res.toObject();
-
+  const pricing = await getPricing(req);
   const dynamic = await getDynamicFees(req);
-
-  // Test purpose
-  await cli.increaseDynamicFeesByCityAsync(req);
 
   const estimate =
     pricing.base +
