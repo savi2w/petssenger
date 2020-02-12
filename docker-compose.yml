@@ -24,10 +24,14 @@ services:
     build:
       context: .
       dockerfile: services/ride/Dockerfile
+    ports:
+      - "3001:3001"
+  ride-redis:
+    image: "redis:6.0-rc1-alpine"
   pg-admin:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: "root@postgresql.org"
       PGADMIN_DEFAULT_PASSWORD: "root"
     ports:
-      - "3001:80"
+      - "3002:80"

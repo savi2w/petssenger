@@ -1,11 +1,15 @@
 interface Environment {
+  estimateExpirationTime: number;
   port: number;
-  pricing: string;
+  pricingAddr: string;
+  redisAddr: string;
 }
 
 const env: Environment = {
-  port: 3000,
-  pricing: "pricing-api:50051"
+  estimateExpirationTime: 20,
+  port: 3001,
+  pricingAddr: "pricing-api:50051",
+  redisAddr: "ride-redis"
 };
 
 export default env;

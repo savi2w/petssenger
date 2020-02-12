@@ -3,12 +3,12 @@ import {
   GetPricingFeesByCityResponse,
   GetDynamicFeesByCityResponse,
   Empty
-} from "../../../../protos/pricing_pb";
+} from "../../../../../protos/pricing_pb";
 
-import { PricingClient } from "../../../../protos/pricing_grpc_pb";
+import { PricingClient } from "../../../../../protos/pricing_grpc_pb";
 
-export * from "../../../../protos/pricing_pb";
-export * from "../../../../protos/pricing_grpc_pb";
+export * from "../../../../../protos/pricing_pb";
+export * from "../../../../../protos/pricing_grpc_pb";
 
 export interface PricingClientAsync extends PricingClient {
   getPricingFeesByCityAsync(
