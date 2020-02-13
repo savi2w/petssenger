@@ -6,7 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && NODE_ENV=production node dist/index.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "migrations:run": "typeorm --config dist/config/ormconfig.js migration:run",
+    "migrations:revert": "typeorm --config dist/config/ormconfig.js migration:revert"
   },
   "author": "weslenng",
   "dependencies": {
@@ -17,6 +19,9 @@
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^8.0.7",
+    "pg": "^7.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.22",
     "yup": "^0.28.1"
   },
   "devDependencies": {

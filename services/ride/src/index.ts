@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import env from "./config/env";
 import server from "./server";
 

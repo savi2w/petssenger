@@ -31,7 +31,7 @@ const ride = async (ctx: Context, next: Next): Promise<void> => {
 
   ctx.body = {
     message: null,
-    payload: { estimate }
+    payload: estimate
   };
 
   return next();

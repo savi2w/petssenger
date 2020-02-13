@@ -45,12 +45,10 @@ export const getEstimate = async (
 };
 
 // It will only be used when the user's microservice is ready
-export const getLastEstimate = async (
-  uuid: string
-): Promise<Estimate | null> => {
+export const getLastEstimate = async (uuid: string): Promise<Estimate> => {
   const stringify = await redis.get(uuid);
   if (typeof stringify !== "string") {
-    return null;
+    throw new Error("the user does not have a valid estimate");
   }
 
   const estimate: Estimate = JSON.parse(stringify);
