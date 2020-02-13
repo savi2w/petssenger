@@ -3,7 +3,7 @@ import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
 
 import estimate from "../controllers/estimate";
-import ride from "../controllers/ride";
+import perform from "../controllers/perform";
 
 const server = (): Koa => {
   const app = new Koa();
@@ -12,7 +12,7 @@ const server = (): Koa => {
   const router = new Router();
 
   router.post("/ride/estimate", estimate);
-  router.post("/ride", ride);
+  router.post("/ride/perform", perform);
 
   app.use(router.routes());
   app.use(router.allowedMethods());

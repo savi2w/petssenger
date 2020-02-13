@@ -1,6 +1,8 @@
 import path from "path";
 import { ConnectionOptions } from "typeorm";
 
+import { Perform } from "../models/perform";
+
 const migrations = [path.join("dist", "migrations", "*.js")];
 const ormConfig: ConnectionOptions = {
   type: "postgres",
@@ -8,9 +10,8 @@ const ormConfig: ConnectionOptions = {
   database: "ride",
   username: "postgres",
   password: "122ff0fb63174b0f8496ec3f30c64470",
-  entities: [],
-  migrations,
-  synchronize: process.env.NODE_ENV !== "production"
+  entities: [Perform],
+  migrations
 };
 
 export = ormConfig;

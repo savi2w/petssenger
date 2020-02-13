@@ -1,7 +1,19 @@
 import { Context, Next } from "koa";
+import * as yup from "yup";
 
 import { getEstimate } from "../models/estimate";
-import { rideSchema } from "../models/ride";
+
+export const rideSchema = yup.object({
+  city: yup.string().required(),
+  distance: yup
+    .number()
+    .positive()
+    .required(),
+  time: yup
+    .number()
+    .positive()
+    .required()
+});
 
 const estimate = async (ctx: Context, next: Next): Promise<void> => {
   const uuid = ctx.request.get("X-User-ID");
@@ -43,6 +55,7 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
     return next();
   }
 
+  ctx.status = 201;
   ctx.body = {
     message: null,
     payload: estimate

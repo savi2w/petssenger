@@ -5,7 +5,7 @@ export class Bootstrap1581618123935 implements MigrationInterface {
     await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
     await queryRunner.createTable(
       new Table({
-        name: "ride",
+        name: "perform",
         columns: [
           {
             name: "id",
@@ -19,7 +19,7 @@ export class Bootstrap1581618123935 implements MigrationInterface {
           },
           {
             name: "estimate",
-            type: "json"
+            type: "jsonb"
           }
         ]
       })
@@ -27,6 +27,6 @@ export class Bootstrap1581618123935 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("ride");
+    await queryRunner.dropTable("perform");
   }
 }

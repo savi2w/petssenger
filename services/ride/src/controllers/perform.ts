@@ -1,8 +1,9 @@
 import { Context, Next } from "koa";
 
-import { getLastEstimate } from "../models/estimate";
+import { getLastEstimate, deleteLastEstimate } from "../models/estimate";
+import { performRide } from "../models/perform";
 
-const ride = async (ctx: Context, next: Next): Promise<void> => {
+const perform = async (ctx: Context, next: Next): Promise<void> => {
   const uuid = ctx.request.get("X-User-ID");
 
   // Replace with an real check when the user's microservice is ready
@@ -29,6 +30,27 @@ const ride = async (ctx: Context, next: Next): Promise<void> => {
     return next();
   }
 
+  try {
+    await performRide(uuid, estimate);
+  } catch (err) {
+    ctx.status = 500;
+    ctx.body = {
+      message: err.message,
+      payload: null
+    };
+  }
+
+  try {
+    await deleteLastEstimate(uuid);
+  } catch (err) {
+    ctx.status = 500;
+    ctx.body = {
+      message: err.message,
+      payload: null
+    };
+  }
+
+  ctx.status = 201;
   ctx.body = {
     message: null,
     payload: estimate
@@ -37,4 +59,4 @@ const ride = async (ctx: Context, next: Next): Promise<void> => {
   return next();
 };
 
-export default ride;
+export default perform;

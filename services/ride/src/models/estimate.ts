@@ -1,12 +1,16 @@
+import { InferType } from "yup";
+
 import { GetFeesByCity } from "./pricing/interfaces";
 import { getPricingFees, getDynamicFees } from "./pricing";
-import { Ride } from "./ride";
 
 import env from "../config/env";
 import redis from "../config/redis";
+import { rideSchema } from "../controllers/estimate";
 import round from "../utils/round";
 
-interface Estimate {
+type Ride = InferType<typeof rideSchema>;
+
+export interface Estimate {
   pricing: number;
   ride: Ride;
 }
@@ -54,3 +58,6 @@ export const getLastEstimate = async (uuid: string): Promise<Estimate> => {
   const estimate: Estimate = JSON.parse(stringify);
   return estimate;
 };
+
+export const deleteLastEstimate = (uuid: string): Promise<number> =>
+  redis.del(uuid);
