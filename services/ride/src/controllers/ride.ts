@@ -1,9 +1,8 @@
 import { Context, Next } from "koa";
 
-import { getEstimate } from "../models/estimate";
-import { rideSchema } from "../models/ride";
+import { getLastEstimate } from "../models/estimate";
 
-const estimate = async (ctx: Context, next: Next): Promise<void> => {
+const ride = async (ctx: Context, next: Next): Promise<void> => {
   const uuid = ctx.request.get("X-User-ID");
 
   // Replace with an real check when the user's microservice is ready
@@ -17,22 +16,9 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
     return next();
   }
 
-  let ride;
-  try {
-    ride = await rideSchema.validate(ctx.request.body);
-  } catch (err) {
-    ctx.status = 400;
-    ctx.body = {
-      message: err.message,
-      payload: null
-    };
-
-    return next();
-  }
-
   let estimate;
   try {
-    estimate = await getEstimate(uuid, ride);
+    estimate = await getLastEstimate(uuid);
   } catch (err) {
     ctx.status = 500;
     ctx.body = {
@@ -51,4 +37,4 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
   return next();
 };
 
-export default estimate;
+export default ride;
