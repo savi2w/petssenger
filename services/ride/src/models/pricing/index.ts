@@ -7,7 +7,8 @@ import {
   PricingClient,
   PricingClientAsync,
   GetFeesByCity,
-  GetPricingFeesByCityResponse
+  GetPricingFeesByCityResponse,
+  Empty
 } from "./interfaces";
 
 const cli = bluebird.promisifyAll(
@@ -25,3 +26,6 @@ export const getDynamicFees = async (req: GetFeesByCity): Promise<number> => {
   const res = await cli.getDynamicFeesByCityAsync(req);
   return res.getDynamic();
 };
+
+export const increaseDynamicFees = (req: GetFeesByCity): Promise<Empty> =>
+  cli.increaseDynamicFeesByCityAsync(req);
