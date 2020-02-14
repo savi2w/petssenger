@@ -15,11 +15,16 @@ export class Bootstrap1581618123935 implements MigrationInterface {
           },
           {
             name: "user",
-            type: "varchar"
+            type: "uuid"
           },
           {
             name: "estimate",
             type: "jsonb"
+          },
+          {
+            name: "performed_at",
+            type: "timestamp",
+            default: "CURRENT_TIMESTAMP"
           }
         ]
       })

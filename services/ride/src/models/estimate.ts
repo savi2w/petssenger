@@ -48,7 +48,6 @@ export const getEstimate = async (
   return setLastEstimate(uuid, estimate);
 };
 
-// It will only be used when the user's microservice is ready
 export const getLastEstimate = async (uuid: string): Promise<Estimate> => {
   const stringify = await redis.get(uuid);
   if (typeof stringify !== "string") {

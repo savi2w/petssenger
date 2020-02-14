@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, getRepository } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, getConnection } from "typeorm";
 
 import { Estimate } from "./estimate";
 import { increaseDynamicFees } from "./pricing";
@@ -9,21 +9,30 @@ export class Perform {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @Column("varchar")
+  @Column("uuid")
   user!: string;
 
   @Column("jsonb")
   estimate!: Estimate;
+
+  @Column("timestamp")
+  performed_at!: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const performRide = async (
-  uuid: string,
+  user: string,
   estimate: Estimate
 ): Promise<void> => {
+  await getConnection()
+    .createQueryBuilder()
+    .insert()
+    .into(Perform)
+    .values({ user, estimate })
+    .execute();
+
   const req = new GetFeesByCity();
   req.setCity(estimate.ride.city);
 
   await increaseDynamicFees(req);
-  await getRepository(Perform).save({ uuid, estimate });
 };
