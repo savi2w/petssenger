@@ -2,6 +2,10 @@
   "name": "petssenger",
   "description": "Basically a Uber for pets",
   "private": true,
+  "scripts": {
+    "build-protos": "./BUILD.sh",
+    "populate": "./POPULATE.sh"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/weslenng/petssenger.git"
