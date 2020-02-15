@@ -8,7 +8,7 @@ import redis from "../config/redis";
 import { rideSchema } from "../controllers/estimate";
 import round from "../utils/round";
 
-type Ride = InferType<typeof rideSchema>;
+export type Ride = InferType<typeof rideSchema>;
 
 export interface Estimate {
   pricing: number;

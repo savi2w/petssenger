@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build-protos": "./BUILD.sh",
-    "populate": "./POPULATE.sh"
+    "populate": "./POPULATE.sh",
+    "test": "./TEST.sh"
   },
   "repository": {
     "type": "git",

@@ -18,6 +18,8 @@ func init() {
 				created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 				PRIMARY KEY(id)
 			);
+
+			INSERT INTO users (id, email) VALUES ('08842beb-a4fc-4cb2-9f87-d80f1a2d5045', 'test@petssenger.com');
 		`)
 
 		return err
