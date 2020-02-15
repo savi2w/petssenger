@@ -21,4 +21,5 @@ WORKDIR /petssenger/services/user
 COPY services/user/. .
 RUN go build
 
+EXPOSE 3002
 CMD ["./user"]

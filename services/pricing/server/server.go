@@ -28,7 +28,7 @@ func (*pricingServer) GetPricingFeesByCity(
 		if err == pg.ErrNoRows {
 			return nil, status.Errorf(
 				codes.NotFound,
-				fmt.Sprintf("The city %v was not found", city),
+				fmt.Sprintf(`The city "%v" was not found`, city),
 			)
 		}
 
@@ -50,7 +50,7 @@ func (*pricingServer) GetDynamicFeesByCity(
 		if err == pg.ErrNoRows {
 			return nil, status.Errorf(
 				codes.NotFound,
-				fmt.Sprintf("The city %v was not found", city),
+				fmt.Sprintf(`The city "%v" was not found`, city),
 			)
 		}
 

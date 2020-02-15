@@ -10,10 +10,10 @@ import (
 type Users struct {
 	ID        string
 	Email     string
-	createdAt string
+	CreatedAt string
 }
 
-// AuthUserByID retrieve an given user
+// AuthUserByID retrieve an given user by ID
 func AuthUserByID(ID string) (*Users, error) {
 	user := &Users{}
 
@@ -36,6 +36,18 @@ func AuthUserByID(ID string) (*Users, error) {
 	}
 
 	err = redis.Client.Set(ID, val, config.Default.RedisExpTime).Err()
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+// CreateUser create a user
+func CreateUser(email string) (*Users, error) {
+	user := &Users{Email: email}
+
+	_, err := db.Model(user).Returning("*").Insert()
 	if err != nil {
 		return nil, err
 	}

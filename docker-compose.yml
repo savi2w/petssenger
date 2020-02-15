@@ -51,6 +51,8 @@ services:
     depends_on:
       - "user-postgres"
       - "user-redis"
+    environment:
+      - GIN_MODE=release
     ports:
       - "3002:3002"
 

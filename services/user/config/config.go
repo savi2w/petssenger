@@ -9,6 +9,7 @@ import (
 // Config is a structure for a common configuration of a user service
 type Config struct {
 	Addr         string
+	HTTPPort     string
 	PgConnOpts   pg.Options
 	RedisAddr    string
 	RedisExpTime time.Duration
@@ -16,7 +17,8 @@ type Config struct {
 
 // Default contains a common configuration for a user service
 var Default = Config{
-	Addr: "0.0.0.0:50051",
+	Addr:     "0.0.0.0:50051",
+	HTTPPort: ":3002",
 	PgConnOpts: pg.Options{
 		Addr:     "user-postgres:5432",
 		User:     "postgres",

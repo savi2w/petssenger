@@ -38,8 +38,8 @@ func (*userServer) AuthUser(
 	}, nil
 }
 
-// UserServerListen is a helper function to listen an user gRPC server
-func UserServerListen() (net.Listener, error) {
+// UserRPCListen is a helper function to listen an user gRPC server
+func UserRPCListen() (net.Listener, error) {
 	lis, err := net.Listen("tcp", config.Default.Addr)
 	if err != nil {
 		return nil, err
