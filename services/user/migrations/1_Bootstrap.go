@@ -18,8 +18,6 @@ func init() {
 				created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 				PRIMARY KEY(id)
 			);
-
-			INSERT INTO users (id, email) VALUES ('30a7e1aa-7ace-47ff-9b1e-b16a5c1701cb', 'weslen-7316@outlook.com');
 		`)
 
 		return err
