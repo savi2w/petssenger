@@ -16,6 +16,7 @@ RUN yarn --pure-lockfile
 # proto files
 WORKDIR /petssenger/protos
 COPY protos/pricing.proto ./
+COPY protos/user.proto ./
 RUN protoc *.proto \
   --plugin="protoc-gen-ts=../node_modules/.bin/protoc-gen-ts" \
   --plugin="protoc-gen-grpc=../node_modules/.bin/grpc_tools_node_protoc_plugin" \

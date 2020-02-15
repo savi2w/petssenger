@@ -2,11 +2,16 @@ package grpc
 
 import (
 	"context"
+	"fmt"
 	"net"
 
+	"github.com/go-pg/pg/v9"
 	pb "github.com/weslenng/petssenger/protos"
 	"github.com/weslenng/petssenger/services/user/config"
+	"github.com/weslenng/petssenger/services/user/models"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type userServer struct{}
@@ -15,7 +20,19 @@ func (*userServer) AuthUser(
 	ctx context.Context,
 	req *pb.AuthUserRequest,
 ) (*pb.AuthUserResponse, error) {
-	// user := req.GetUser()
+	user := req.GetUser()
+	_, err := models.AuthUserByID(user)
+	if err != nil {
+		if err == pg.ErrNoRows {
+			return nil, status.Errorf(
+				codes.PermissionDenied,
+				fmt.Sprintf("The user %v was not found", user),
+			)
+		}
+
+		panic(err)
+	}
+
 	return &pb.AuthUserResponse{
 		Authed: true,
 	}, nil

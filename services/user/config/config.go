@@ -20,7 +20,7 @@ var Default = Config{
 	PgConnOpts: pg.Options{
 		Addr:     "user-postgres:5432",
 		User:     "postgres",
-		Password: "04b76987bf0649519ef42136419d442e",
+		Password: "52b44f2327094ed59790a7506df7e1db",
 		Database: "user",
 	},
 	RedisAddr:    "user-redis:6379",

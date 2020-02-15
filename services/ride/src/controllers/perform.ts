@@ -1,16 +1,18 @@
 import { Context, Next } from "koa";
 
+import { authUser } from "../models/user";
 import { getLastEstimate, deleteLastEstimate } from "../models/estimate";
 import { performRide } from "../models/perform";
 
 const perform = async (ctx: Context, next: Next): Promise<void> => {
   const uuid = ctx.request.get("X-User-ID");
 
-  // Replace with an real check when the user's microservice is ready
-  if (uuid !== "c68914e0-d085-4049-81eb-789322ce284c") {
+  try {
+    await authUser(uuid);
+  } catch (err) {
     ctx.status = 401;
     ctx.body = {
-      message: "Unauthorized",
+      message: err.message,
       payload: null
     };
 

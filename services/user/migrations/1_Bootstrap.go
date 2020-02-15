@@ -12,17 +12,18 @@ func init() {
 
 		_, err := db.Exec(`
 			CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-			CREATE TABLE user (
+			CREATE TABLE users (
 				id uuid NOT NULL DEFAULT uuid_generate_v4(),
-				name VARCHAR NOT NULL,
-				created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+				email VARCHAR NOT NULL UNIQUE,
+				created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				PRIMARY KEY(id)
 			);
 		`)
 
 		return err
 	}, func(db migrations.DB) error {
 		fmt.Println("Dropping user 1_Bootstrap...")
-		_, err := db.Exec("DROP TABLE user;")
+		_, err := db.Exec("DROP TABLE users;")
 		return err
 	})
 }

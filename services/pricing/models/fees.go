@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/vmihailenco/msgpack/v4"
-	pricingpb "github.com/weslenng/petssenger/protos"
+	pb "github.com/weslenng/petssenger/protos"
 	"github.com/weslenng/petssenger/services/pricing/config"
 	"github.com/weslenng/petssenger/services/pricing/redis"
 )
@@ -18,8 +18,8 @@ type Fees struct {
 }
 
 // ProtoPricingFees transforms the type Fees in a GetPricingFeesByCityResponse
-func ProtoPricingFees(fees *Fees) *pricingpb.GetPricingFeesByCityResponse {
-	return &pricingpb.GetPricingFeesByCityResponse{
+func ProtoPricingFees(fees *Fees) *pb.GetPricingFeesByCityResponse {
+	return &pb.GetPricingFeesByCityResponse{
 		Id:       fees.ID,
 		Base:     fees.Base,
 		Distance: fees.Distance,
@@ -66,8 +66,8 @@ func GetPricingFees(ID string) (*Fees, error) {
 }
 
 // ProtoDynamicFees transforms the type Fees in a GetDynamicFeesByCityResponse
-func ProtoDynamicFees(fees *Fees) *pricingpb.GetDynamicFeesByCityResponse {
-	return &pricingpb.GetDynamicFeesByCityResponse{
+func ProtoDynamicFees(fees *Fees) *pb.GetDynamicFeesByCityResponse {
+	return &pb.GetDynamicFeesByCityResponse{
 		Dynamic: fees.Dynamic,
 	}
 }
