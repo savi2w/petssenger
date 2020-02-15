@@ -8,9 +8,9 @@ import (
 
 // Users represents a user structure
 type Users struct {
-	ID        string
-	Email     string
-	CreatedAt string
+	ID        string `json:"id"`
+	Email     string `json:"email"`
+	CreatedAt string `json:"createdAt"`
 }
 
 // AuthUserByID retrieve an given user by ID
