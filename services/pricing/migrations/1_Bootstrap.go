@@ -8,7 +8,7 @@ import (
 
 func init() {
 	migrations.MustRegisterTx(func(db migrations.DB) error {
-		fmt.Println("Migrating 1_Bootstrap...")
+		fmt.Println("Migrating pricing 1_Bootstrap...")
 
 		_, err := db.Exec(`
 			CREATE TABLE fees (
@@ -30,7 +30,7 @@ func init() {
 
 		return err
 	}, func(db migrations.DB) error {
-		fmt.Println("Dropping 1_Bootstrap...")
+		fmt.Println("Dropping pricing 1_Bootstrap...")
 
 		_, err := db.Exec(("DROP TABLE fees;"))
 		return err

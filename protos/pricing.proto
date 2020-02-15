@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package pricing;
-option go_package = "pricingpb";
+option go_package = "pb";
 
 service Pricing {
   rpc GetPricingFeesByCity(GetFeesByCity)
