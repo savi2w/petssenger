@@ -4,7 +4,8 @@ Resolução do sistema proposto em [hashlab/hiring](https://github.com/hashlab/h
 
 ### Arquitetura
 
-A arquitetura do produto foi desenhada para permitir uma fácil escalabilidade e substituição. Ao estabelecer uma separação entre os serviços há ganhos consideráveis de performance e de isolamento de responsabilidades, o que torna o sistema mais conciso, seguro e performático em comparação a sistemas monolíticos. Este benefício pôde ser constatado **ainda no desenvolvimento**, quando houve a necessidade de criar mais microserviços do que o previsto e, também, quando foi necessário alterar o "fluxo de chamadas"[¹](https://imgur.com/a/llpJ6Ir) do produto.
+A arquitetura do produto foi desenhada para permitir uma fácil escalabilidade e substituição.
+Ao estabelecer uma separação entre os serviços houveram ganhos consideráveis de performance e de isolamento de responsabilidades, o que torna o sistema mais conciso, seguro e performático em comparação a sistemas monolíticos. Este benefício pôde ser constatado **ainda no desenvolvimento**, quando houve a necessidade de criar mais microserviços do que o previsto[¹](https://imgur.com/a/llpJ6Ir). Tudo ficou muito "plugável".
 
 ### Getting Started
 
@@ -30,5 +31,5 @@ A arquitetura do produto foi desenhada para permitir uma fácil escalabilidade e
 ### Considerações
 
 - Foi a minha primeira vez utilizando Golang em algo palpável, se cometi algum crime escrevendo os códigos, abra uma issue 😄, o mesmo vale para melhorias e sugestões.
-- A conexão do banco de dados nos serviços escritos em Golang, estão num contexto global (dentro do pacote _models_) pois não consegui repassa-lá utilizando _Closure_. Nas funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq), a conexão sofria um erro de _dereference_.
+- A conexão do banco de dados nos serviços escritos em Golang, estão num contexto global (dentro do pacote _models_) pois não consegui repassa-lá utilizando _Closure_, já que nas funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq), a conexão sofria um erro de _dereference_.
 - Nas _models_ que consultam um microserviço gRPC do serviço _ride_, foi necessário criar uma interface para as funções assíncronas pois a função `bluebird.promisifyAll` não consegue inferir o tipo das novas funções criadas por ele[²](https://github.com/Microsoft/TypeScript/issues/8685#issuecomment-240201897).
