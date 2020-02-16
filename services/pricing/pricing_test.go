@@ -120,7 +120,7 @@ func TestIncreaseDynamicFeesByCity(t *testing.T) {
 	expected := old + config.Default.DynamicFeesIncreaseRate
 	newer := fees.GetDynamic()
 	if expected < newer {
-		t.Errorf("Dynamic is not being incremented properly")
+		t.Errorf("Dynamic fees is not being incremented properly")
 	}
 }
 

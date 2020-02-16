@@ -1,8 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"fmt"
+	"math/rand"
+	"net/http"
 	"testing"
+	"time"
 
 	pb "github.com/weslenng/petssenger/protos"
 	"github.com/weslenng/petssenger/services/user/config"
@@ -48,5 +53,68 @@ func TestAuthUserWithInvalidUser(t *testing.T) {
 		if c.Code() != codes.PermissionDenied {
 			t.Error(err)
 		}
+	}
+}
+
+func TestCreateUser(t *testing.T) {
+	seeded := rand.New(
+		rand.NewSource(time.Now().UnixNano()))
+
+	json := []byte(fmt.Sprintf(`{"email":"%v@petssenger.com"}`, seeded.Int()))
+	res, err := http.Post(
+		fmt.Sprintf(
+			"http://localhost%v/user",
+			config.Default.HTTPPort,
+		),
+		"application/json",
+		bytes.NewBuffer(json),
+	)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if res.StatusCode != http.StatusCreated {
+		t.Errorf("createUser is returning a wrong status code")
+	}
+}
+
+func TestCreateUserWithAnExistingUser(t *testing.T) {
+	json := []byte(`{"email":"test@petssenger.com"}`)
+	res, err := http.Post(
+		fmt.Sprintf(
+			"http://localhost%v/user",
+			config.Default.HTTPPort,
+		),
+		"application/json",
+		bytes.NewBuffer(json),
+	)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if res.StatusCode != http.StatusInternalServerError {
+		t.Errorf("createUser is returning a wrong status code when email already exists")
+	}
+}
+
+func TestCreateUserWithInvalidEmail(t *testing.T) {
+	json := []byte(`{"email":"anything"}`)
+	res, err := http.Post(
+		fmt.Sprintf(
+			"http://localhost%v/user",
+			config.Default.HTTPPort,
+		),
+		"application/json",
+		bytes.NewBuffer(json),
+	)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if res.StatusCode != http.StatusBadRequest {
+		t.Errorf("createUser is returning a wrong status code when a invalid body is provided")
 	}
 }
