@@ -69,7 +69,10 @@ func (*pricingServer) IncreaseDynamicFeesByCity(
 
 	err := models.IncreaseDynamicFees(city)
 	if err != nil {
-		panic(err)
+		return nil, status.Errorf(
+			codes.InvalidArgument,
+			fmt.Sprintf(`The city "%v" is invalid`, city),
+		)
 	}
 
 	job := worker.DecreaseDynamicFees.WithArgs(context.Background(), city)
