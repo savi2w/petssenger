@@ -19,7 +19,6 @@ export class Perform {
   performed_at!: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const performRide = async (
   user: string,
   estimate: Estimate
