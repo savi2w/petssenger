@@ -16,7 +16,7 @@ var (
 		Name:  "pricing-worker",
 		Redis: redis.Client,
 	})
-	// DecreaseDynamicFees must decrease dynamic fees on all requests after 5 minutes
+	// DecreaseDynamicFees must decrease dynamic fees on all increase requests after 5 minutes
 	DecreaseDynamicFees = taskq.RegisterTask(&taskq.TaskOptions{
 		Name:       "decrease-dynamic-fees",
 		Handler:    models.DecreaseDynamicFees,

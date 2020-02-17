@@ -7,7 +7,7 @@ interface Environment {
 
 const env: Environment = {
   estimateExpirationTime: 20,
-  port: 3001,
+  port: 3000,
   pricingAddr: "pricing-api:50051",
   userAddr: "user-api:50051"
 };

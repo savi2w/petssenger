@@ -28,5 +28,5 @@ RUN protoc *.proto \
 WORKDIR /petssenger/services/ride
 COPY services/ride/. .
 
-EXPOSE 3001
+EXPOSE 3000
 CMD ["yarn", "start"]

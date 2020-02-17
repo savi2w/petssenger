@@ -2,6 +2,7 @@ package http
 
 import (
 	"fmt"
+	"net"
 	"net/http"
 	"regexp"
 
@@ -71,13 +72,21 @@ func createUser(c *gin.Context) {
 }
 
 // UserHTTPListen is a helper function to listen an user HTTP server
-func UserHTTPListen() {
+func UserHTTPListen() (net.Listener, error) {
 	r := gin.New()
 	r.Use(gin.Recovery())
 	r.POST("/user", createUser)
 
-	err := r.Run(config.Default.HTTPPort)
+	lis, err := net.Listen("tcp", config.Default.HTTPPort)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
+
+	err = r.RunListener(lis)
+	if err != nil {
+		lis.Close()
+		return nil, err
+	}
+
+	return lis, nil
 }

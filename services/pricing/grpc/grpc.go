@@ -1,4 +1,4 @@
-package server
+package grpc
 
 import (
 	"context"
@@ -86,8 +86,8 @@ func (*pricingServer) IncreaseDynamicFeesByCity(
 	return &pb.Empty{}, nil
 }
 
-// PricingServerListen is a helper function to listen an pricing gRPC server
-func PricingServerListen() (net.Listener, error) {
+// PricingRPCListen is a helper function to listen an pricing gRPC server
+func PricingRPCListen() (net.Listener, error) {
 	lis, err := net.Listen("tcp", config.Default.Addr)
 	if err != nil {
 		return nil, err

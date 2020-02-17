@@ -6,7 +6,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: "root@postgresql.org"
       PGADMIN_DEFAULT_PASSWORD: "root"
     ports:
-      - "3000:80"
+      - "8000:80"
 
   pricing-api:
     build:
@@ -33,7 +33,7 @@ services:
       - "ride-postgres"
       - "ride-redis"
     ports:
-      - "3001:3001"
+      - "3000:3000"
 
   ride-postgres:
     image: "postgres:12.1-alpine"

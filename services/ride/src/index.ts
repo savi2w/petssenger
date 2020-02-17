@@ -3,8 +3,8 @@ import { createConnection } from "typeorm";
 
 import env from "./config/env";
 import ormConfig from "./config/ormconfig";
-import server from "./server";
+import http from "./http";
 
 createConnection(ormConfig).then(() => {
-  server().listen(env.port);
+  http().listen(env.port);
 });

@@ -5,7 +5,7 @@ import bodyParser from "koa-bodyparser";
 import estimate from "../controllers/estimate";
 import perform from "../controllers/perform";
 
-const server = (): Koa => {
+const http = (): Koa => {
   const app = new Koa();
 
   app.use(bodyParser());
@@ -20,4 +20,4 @@ const server = (): Koa => {
   return app;
 };
 
-export default server;
+export default http;

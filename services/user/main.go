@@ -9,15 +9,6 @@ import (
 	"github.com/weslenng/petssenger/services/user/redis"
 )
 
-func startGRPC() {
-	lis, err := grpc.UserRPCListen()
-	if err != nil {
-		panic(err)
-	}
-
-	defer lis.Close()
-}
-
 func main() {
 	db := models.InitDB()
 	defer db.Close()
@@ -28,12 +19,22 @@ func main() {
 
 	go func() {
 		defer wg.Done()
-		startGRPC()
+		lis, err := grpc.UserRPCListen()
+		if err != nil {
+			panic(err)
+		}
+
+		defer lis.Close()
 	}()
 
 	go func() {
 		defer wg.Done()
-		http.UserHTTPListen()
+		lis, err := http.UserHTTPListen()
+		if err != nil {
+			panic(err)
+		}
+
+		defer lis.Close()
 	}()
 
 	wg.Wait()

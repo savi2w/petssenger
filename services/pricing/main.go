@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 
+	"github.com/weslenng/petssenger/services/pricing/grpc"
 	"github.com/weslenng/petssenger/services/pricing/models"
 	"github.com/weslenng/petssenger/services/pricing/redis"
-	"github.com/weslenng/petssenger/services/pricing/server"
 	"github.com/weslenng/petssenger/services/pricing/worker"
 )
 
@@ -20,7 +20,7 @@ func main() {
 	}
 
 	defer worker.MainQueue.Close()
-	lis, err := server.PricingServerListen()
+	lis, err := grpc.PricingRPCListen()
 	if err != nil {
 		panic(err)
 	}
