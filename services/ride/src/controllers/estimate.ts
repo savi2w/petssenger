@@ -59,7 +59,7 @@ const estimate = async (ctx: Context, next: Next): Promise<void> => {
 
   ctx.status = 201;
   ctx.body = {
-    message: null,
+    message: "Estimated",
     payload: estimate
   };
 
