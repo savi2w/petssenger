@@ -51,7 +51,7 @@ export const getEstimate = async (
 export const getLastEstimate = async (uuid: string): Promise<Estimate> => {
   const stringify = await redis.get(uuid);
   if (typeof stringify !== "string") {
-    throw new Error("the user does not have a valid estimate");
+    throw new Error("NoEstimate");
   }
 
   const estimate: Estimate = JSON.parse(stringify);
