@@ -39,4 +39,3 @@ Ao estabelecer uma separação entre os serviços houveram ganhos consideráveis
 
 - Foi a minha primeira vez utilizando Golang em algo palpável, se cometi algum crime escrevendo os códigos, abra uma issue 😄, o mesmo vale para melhorias e sugestões.
 - A conexão do banco de dados nos serviços escritos em Golang, estão num contexto global (dentro do pacote _models_) pois não consegui repassa-lá utilizando _Closure_, já que nas funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq), a conexão sofria um erro de _dereference_.
-- Nas _models_ que consultam um microserviço gRPC do serviço _ride_, foi necessário criar uma interface para as funções assíncronas pois a função `bluebird.promisifyAll` não consegue inferir o tipo das novas funções criadas por ele[²](https://github.com/Microsoft/TypeScript/issues/8685#issuecomment-240201897).
