@@ -5,7 +5,7 @@ Resolução do sistema proposto em [hashlab/hiring](https://github.com/hashlab/h
 ### Arquitetura
 
 A arquitetura do produto foi desenhada para permitir uma fácil escalabilidade e substituição.
-Ao estabelecer uma separação entre os serviços houveram ganhos consideráveis de performance e de isolamento de responsabilidades, o que torna o sistema mais conciso, seguro e performático em comparação a sistemas monolíticos. Este benefício pôde ser constatado **ainda no desenvolvimento**, quando houve a necessidade de criar mais microserviços do que o previsto[¹](https://imgur.com/a/llpJ6Ir). Tudo ficou muito "plugável".
+Ao estabelecer uma separação entre os serviços houveram ganhos consideráveis de performance e de isolamento de responsabilidades, o que tornou o sistema mais conciso, seguro e performático em comparação a sistemas monolíticos. Este benefício pôde ser constatado **ainda no desenvolvimento**, quando houve a necessidade de criar mais microserviços do que o previsto[¹](https://imgur.com/a/llpJ6Ir). Tudo ficou muito "plugável".
 
 ### Getting Started
 
