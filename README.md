@@ -16,7 +16,7 @@ Ao estabelecer uma separação entre os serviços houveram ganhos consideráveis
 
 ### HTTP Routes
 
-- POST _http://localhost:3000/ride/estimate_ - Estima o preço de uma corrida baseado na cidade escolhida, na distância e no tempo da viagem. A estimativa possui uma validade de apenas **20 segundos** por causa da taxa dinâmica da cidade, nesse tempo a estimativa pode ser confirmada, ou apenas expirar.
+- POST http://localhost:3000/ride/estimate - Estima o preço de uma corrida baseado na cidade escolhida, na distância e no tempo da viagem. A estimativa possui uma validade de apenas **20 segundos** por causa da taxa dinâmica da cidade, nesse tempo a estimativa pode ser confirmada, ou apenas expirar.
 
   `curl --location --request POST 'http://localhost:3000/ride/estimate' --header 'Content-Type: application/json' --header 'X-User-ID: 08842beb-a4fc-4cb2-9f87-d80f1a2d5045' --data-raw '{ "city": "RIO_DE_JANEIRO", "distance": 7.23, "time": 19.6 }'`
 
