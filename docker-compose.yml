@@ -1,0 +1,58 @@
+version: "3"
+services:
+  pricing-api:
+    build:
+      context: .
+      dockerfile: services/pricing/Dockerfile
+    depends_on:
+      - "pricing-postgres"
+      - "pricing-redis"
+
+  pricing-postgres:
+    image: "postgres:12.1-alpine"
+    environment:
+      POSTGRES_DB: pricing
+      POSTGRES_PASSWORD: 04b76987bf0649519ef42136419d442e
+
+  pricing-redis:
+    image: "redis:6.0-rc1-alpine"
+
+  ride-api:
+    build:
+      context: .
+      dockerfile: services/ride/Dockerfile
+    depends_on:
+      - "ride-postgres"
+      - "ride-redis"
+    ports:
+      - "3000:3000"
+
+  ride-postgres:
+    image: "postgres:12.1-alpine"
+    environment:
+      POSTGRES_DB: ride
+      POSTGRES_PASSWORD: 122ff0fb63174b0f8496ec3f30c64470
+
+  ride-redis:
+    image: "redis:6.0-rc1-alpine"
+
+  user-api:
+    build:
+      context: .
+      dockerfile: services/user/Dockerfile
+    depends_on:
+      - "user-postgres"
+      - "user-redis"
+    environment:
+      - GIN_MODE=release
+    ports:
+      - "3002:3002"
+
+  user-postgres:
+    image: "postgres:12.1-alpine"
+    environment:
+      POSTGRES_DB: user
+      POSTGRES_PASSWORD: 52b44f2327094ed59790a7506df7e1db
+
+  user-redis:
+    image: "redis:6.0-rc1-alpine"

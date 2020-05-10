@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pricing;
+option go_package = "proto";
+
+service Pricing {
+  rpc GetPricingFeesByCity(GetFeesByCity)
+      returns (GetPricingFeesByCityResponse) {};
+  rpc GetDynamicFeesByCity(GetFeesByCity)
+      returns (GetDynamicFeesByCityResponse) {};
+  rpc IncreaseDynamicFeesByCity(GetFeesByCity) returns (Empty) {};
+}
+
+message GetFeesByCity { string city = 1; }
+
+message GetPricingFeesByCityResponse {
+  string id = 1;
+  float base = 2;
+  float distance = 3;
+  float minute = 4;
+  float service = 5;
+}
+
+message GetDynamicFeesByCityResponse { float dynamic = 1; }
+
+message Empty {}

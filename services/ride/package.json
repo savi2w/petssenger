@@ -1,0 +1,50 @@
+{
+  "name": "@petssenger/ride",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "migrations:run": "typeorm --config dist/config/ormconfig.js migration:run",
+    "migrations:revert": "typeorm --config dist/config/ormconfig.js migration:revert",
+    "start": "NODE_ENV=production node dist/index.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "google-protobuf": "^3.11.3",
+    "grpc": "^1.24.2",
+    "ioredis": "^4.14.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^8.0.7",
+    "pg": "^7.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.22",
+    "yup": "^0.28.1"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.29",
+    "@types/google-protobuf": "^3.7.2",
+    "@types/ioredis": "^4.14.7",
+    "@types/jest": "^25.1.2",
+    "@types/koa": "^2.11.0",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.0",
+    "@types/node": "^13.7.0",
+    "@types/supertest": "^2.0.8",
+    "@types/yup": "^0.26.30",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "grpc-tools": "^1.8.1",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.2.0",
+    "ts-protoc-gen": "^0.12.0",
+    "typescript": "^3.7.5"
+  }
+}

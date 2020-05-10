@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package user;
+option go_package = "proto";
+
+service User {
+  rpc AuthUser(AuthUserRequest) returns (AuthUserResponse) {};
+}
+
+message AuthUserRequest { string user = 1; }
+
+message AuthUserResponse { bool authed = 1; }

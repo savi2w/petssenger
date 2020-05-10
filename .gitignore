@@ -1,0 +1,14 @@
+# dependencies
+node_modules
+
+# misc
+.vscode
+
+# internal
+dist
+coverage
+
+# protos
+*.pb.go
+*_pb.d.ts
+*_pb.js

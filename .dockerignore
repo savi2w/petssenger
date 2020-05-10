@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+
+# docker
+.dockerignore
+.eslintrc
+.gitignore
+docker-compose.yml
+Dockerfile
+LICENSE
+README.md
+
+# misc
+.vscode
+
+# protos
+protos/*.d.ts
+protos/*.go
+protos/*.js
