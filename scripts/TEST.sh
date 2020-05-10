@@ -1,5 +1,3 @@
-# Utility script to test services
-
 # Pricing
 docker exec -it petssenger_pricing-api_1 go test
 

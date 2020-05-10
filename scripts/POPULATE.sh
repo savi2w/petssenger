@@ -1,5 +1,3 @@
-# Utility script to run migrations on docker image
-
 # Pricing
 docker exec -it petssenger_pricing-api_1 go run ./migrations/. init
 # docker exec -it petssenger_pricing-api_1 go run ./migrations/. down
