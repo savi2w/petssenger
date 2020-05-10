@@ -41,4 +41,4 @@ curl --location --request POST 'http://localhost:3002/user' --header 'Content-Ty
 
 ### Considerações
 
-- A conexão do banco de dados nos serviços escritos em Golang, estão num contexto global (dentro do pacote _models_) pois não consegui repassa-lá utilizando _closure_, já que nas funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq), a conexão sofria um erro de _dereference_.
+- A conexão do banco de dados nos serviços escritos em Golang, estão num contexto global (dentro do pacote _models_) pois não consegui repassa-lás utilizando _closure_, já que nas funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq), a conexão sofria um erro de _dereference_.
