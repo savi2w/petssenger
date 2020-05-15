@@ -17,14 +17,12 @@ func AuthUserByID(ID string) (*Users, error) {
 
 	val, err := redis.Client.Get(ID).Bytes()
 	if err == nil {
-		err = msgpack.Unmarshal(val, user)
-		if err == nil {
+		if err := msgpack.Unmarshal(val, user); err == nil {
 			return user, nil
 		}
 	}
 
-	err = db.Model(user).Where("id = ?", ID).Select()
-	if err != nil {
+	if err := db.Model(user).Where("id = ?", ID).Select(); err != nil {
 		return nil, err
 	}
 

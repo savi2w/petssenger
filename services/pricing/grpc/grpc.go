@@ -67,8 +67,7 @@ func (*pricingServer) IncreaseDynamicFeesByCity(
 ) (*proto.Empty, error) {
 	city := req.GetCity()
 
-	err := models.IncreaseDynamicFees(city)
-	if err != nil {
+	if err := models.IncreaseDynamicFees(city); err != nil {
 		return nil, status.Errorf(
 			codes.InvalidArgument,
 			fmt.Sprintf(`The city "%v" is invalid`, city),
@@ -78,8 +77,7 @@ func (*pricingServer) IncreaseDynamicFeesByCity(
 	job := worker.DecreaseDynamicFees.WithArgs(context.Background(), city)
 	job.Delay = config.Default.DynamicFeesDecreaseTime
 
-	err = worker.MainQueue.Add(job)
-	if err != nil {
+	if err := worker.MainQueue.Add(job); err != nil {
 		panic(err)
 	}
 

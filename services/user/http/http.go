@@ -78,8 +78,7 @@ func UserHTTPListen() (net.Listener, error) {
 		return nil, err
 	}
 
-	err = r.RunListener(lis)
-	if err != nil {
+	if err := r.RunListener(lis); err != nil {
 		lis.Close()
 		return nil, err
 	}

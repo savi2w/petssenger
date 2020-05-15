@@ -14,8 +14,7 @@ func main() {
 	defer db.Close()
 	defer redis.Client.Close()
 
-	err := worker.MainQueue.Consumer().Start(context.Background())
-	if err != nil {
+	if err := worker.MainQueue.Consumer().Start(context.Background()); err != nil {
 		panic(err)
 	}
 

@@ -31,8 +31,7 @@ func GetPricingFees(ID string) (*Fees, error) {
 
 	val, err := redis.Client.Get(ID).Bytes()
 	if err == nil {
-		err = msgpack.Unmarshal(val, fees)
-		if err == nil {
+		if err := msgpack.Unmarshal(val, fees); err == nil {
 			return fees, nil
 		}
 	}
