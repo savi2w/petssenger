@@ -1,14 +1,12 @@
-# dependencies
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 node_modules
 
-# misc
 .vscode
 
-# internal
 dist
 coverage
 
-# protos
 *.pb.go
 *_pb.d.ts
 *_pb.js
