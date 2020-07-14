@@ -4,7 +4,7 @@ Resolução do sistema proposto em [hashlab/hiring](https://github.com/hashlab/h
 
 ### Getting Started
 
-- Em um sistema POSIX, certifique-se que o [docker](https://docs.docker.com/install/) e o [docker-compose](https://docs.docker.com/compose/install/) estejam instalados corretamente
+- Certifique-se que o [docker](https://docs.docker.com/install/) e o [docker-compose](https://docs.docker.com/compose/install/) estejam instalados corretamente
 - Na pasta raíz da aplicação execute o comando `docker-compose up --build -d`
 - Com **todos** os containeres online, execute o comando `yarn populate` para preencher os bancos de dados com os dados iniciais
 - Por fim, teste a aplicação executando o comando `yarn test`
