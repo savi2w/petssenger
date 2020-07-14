@@ -26,19 +26,19 @@ $ curl --location --request POST 'http://localhost:3000/ride/perform' --header '
 - POST http://localhost:3002/user - Cria um usuário através de um dado email.
 
 ```sh
-curl --location --request POST 'http://localhost:3002/user' --header 'Content-Type: application/json' --data-raw '{ "email": "next@petssenger.com" }'
+$ curl --location --request POST 'http://localhost:3002/user' --header 'Content-Type: application/json' --data-raw '{ "email": "next@petssenger.com" }'
 ```
 
 ### gRPC Functions
 
-- _GetPricingFeesByCity_ - Retorna as informações de precificação (taxa base, taxa de distância, taxa de tempo e taxa de serviço) de uma corrida para uma determinada cidade
+- **GetPricingFeesByCity** - Retorna as informações de precificação (taxa base, taxa de distância, taxa de tempo e taxa de serviço) de uma corrida para uma determinada cidade
 
-- _GetDynamicFeesByCity_ - Retorna a taxa dinâmica de uma cidade. Não foi fundida à função acima por questões de _caching_
+- **GetDynamicFeesByCity** - Retorna a taxa dinâmica de uma cidade. Não foi fundida à função acima por questões de _caching_
 
-- _IncreaseDynamicFeesByCity_ - Incrementa a taxa dinâmica de uma cidade
+- **IncreaseDynamicFeesByCity** - Incrementa a taxa dinâmica de uma cidade
 
-- _AuthUser_ - Determina se um usuário existe ou não através de seu UUID (X-User-ID)
+- **AuthUser** - Determina se um usuário existe ou não através de seu UUID (X-User-ID)
 
 ### Considerações
 
-- A conexão do banco de dados nos serviços escritos em Golang está num contexto de _closure_ (dentro do pacote _models_) porque não consegui repassá-la através dos argumentos, já que as funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq) sofriam um erro de _dereference_.
+- A conexão do banco de dados dos serviços escritos em Golang estão num contexto de _closure_ porque as funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq) sofrem um erro de _dereference_.
