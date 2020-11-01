@@ -3,7 +3,7 @@ import { ConnectionOptions } from "typeorm";
 
 import { Perform } from "../models/perform";
 
-const migrations = [path.join("dist", "migrations", "*.js")];
+const migrations = [path.join("build", "migrations", "*.js")];
 const ormConfig: ConnectionOptions = {
   type: "postgres",
   host: "ride-postgres",

@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
-    "migrations:run": "typeorm --config dist/config/ormconfig.js migration:run",
-    "migrations:revert": "typeorm --config dist/config/ormconfig.js migration:revert",
+    "migrations:run": "typeorm --config build/config/ormconfig.js migration:run",
+    "migrations:revert": "typeorm --config build/config/ormconfig.js migration:revert",
     "start": "NODE_ENV=production node build/index.js",
     "test": "jest --coverage"
   },
