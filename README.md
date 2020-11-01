@@ -2,14 +2,14 @@
 
 Resolução do sistema proposto em [hashlab/hiring](https://github.com/hashlab/hiring/blob/5ae82743d1afd7f741d59ee63ffa8149ffa12660/challenges/pt-br/backend-finance-challenge.md)
 
-### Getting Started
+## Getting Started
 
 - Certifique-se que o [docker](https://docs.docker.com/install/) e o [docker-compose](https://docs.docker.com/compose/install/) estejam instalados corretamente
 - Na pasta raíz da aplicação execute o comando `docker-compose up --build -d`
 - Com **todos** os containeres online, execute o comando `yarn populate` para preencher os bancos de dados com os dados iniciais
 - Por fim, teste a aplicação executando o comando `yarn test`
 
-### HTTP Routes
+## HTTP Routes
 
 - POST http://localhost:3000/ride/estimate - Estima o preço de uma corrida baseado na cidade escolhida, na distância e no tempo da viagem. A estimativa possui uma validade de apenas **20 segundos** por causa da taxa dinâmica da cidade, nesse tempo a estimativa pode ser confirmada, ou apenas expirar.
 
@@ -29,7 +29,7 @@ $ curl --location --request POST 'http://localhost:3000/ride/perform' --header '
 $ curl --location --request POST 'http://localhost:3002/user' --header 'Content-Type: application/json' --data-raw '{ "email": "next@petssenger.com" }'
 ```
 
-### gRPC Functions
+## gRPC Functions
 
 - **GetPricingFeesByCity** - Retorna as informações de precificação (taxa base, taxa de distância, taxa de tempo e taxa de serviço) de uma corrida para uma determinada cidade
 
@@ -39,6 +39,6 @@ $ curl --location --request POST 'http://localhost:3002/user' --header 'Content-
 
 - **AuthUser** - Determina se um usuário existe ou não através de seu UUID (X-User-ID)
 
-### Considerações
+## License
 
-- A conexão do banco de dados dos serviços escritos em Golang estão num contexto de _closure_ porque as funções executadas pelo [_taskq_](https://github.com/vmihailenco/taskq) sofrem um erro de _dereference_.
+This project is distributed under the [MIT license](LICENSE)

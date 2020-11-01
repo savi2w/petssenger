@@ -1,12 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-node_modules
-
-.vscode
-
-dist
-coverage
-
 *.pb.go
 *_pb.d.ts
 *_pb.js
+.vscode
+build
+coverage
+node_modules

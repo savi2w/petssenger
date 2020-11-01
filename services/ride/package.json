@@ -2,12 +2,12 @@
   "name": "@petssenger/ride",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "tsc",
     "migrations:run": "typeorm --config dist/config/ormconfig.js migration:run",
     "migrations:revert": "typeorm --config dist/config/ormconfig.js migration:revert",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=production node build/index.js",
     "test": "jest --coverage"
   },
   "dependencies": {
