@@ -1,7 +1,7 @@
 *.pb.go
 *_pb.d.ts
 *_pb.js
-.vscode
+/.vscode
 build
 coverage
 node_modules
