@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/weslenng/petssenger/services/user/config"
-	proto "github.com/weslenng/petssenger/services/user/protos"
+	"github.com/nglabo/petssenger/services/user/config"
+	proto "github.com/nglabo/petssenger/services/user/protos"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

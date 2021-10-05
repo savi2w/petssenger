@@ -1,5 +1,5 @@
 FROM golang:1.14rc1-stretch
-LABEL maintainer="weslenng"
+LABEL maintainer="Weslen Guerreiro <omppye@gmail.com>"
 
 RUN apt-get update
 RUN apt-get install -y protobuf-compiler golang-protobuf-extensions-dev

@@ -6,9 +6,9 @@ import (
 	"net"
 
 	"github.com/go-pg/pg/v9"
-	"github.com/weslenng/petssenger/services/user/config"
-	"github.com/weslenng/petssenger/services/user/models"
-	proto "github.com/weslenng/petssenger/services/user/protos"
+	"github.com/nglabo/petssenger/services/user/config"
+	"github.com/nglabo/petssenger/services/user/models"
+	proto "github.com/nglabo/petssenger/services/user/protos"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

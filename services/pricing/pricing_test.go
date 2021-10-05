@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/weslenng/petssenger/services/pricing/config"
-	proto "github.com/weslenng/petssenger/services/pricing/protos"
+	"github.com/nglabo/petssenger/services/pricing/config"
+	proto "github.com/nglabo/petssenger/services/pricing/protos"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

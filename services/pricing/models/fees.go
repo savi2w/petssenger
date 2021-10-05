@@ -2,9 +2,9 @@ package models
 
 import (
 	"github.com/vmihailenco/msgpack/v4"
-	"github.com/weslenng/petssenger/services/pricing/config"
-	proto "github.com/weslenng/petssenger/services/pricing/protos"
-	"github.com/weslenng/petssenger/services/pricing/redis"
+	"github.com/nglabo/petssenger/services/pricing/config"
+	proto "github.com/nglabo/petssenger/services/pricing/protos"
+	"github.com/nglabo/petssenger/services/pricing/redis"
 )
 
 type Fees struct {

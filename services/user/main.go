@@ -3,10 +3,10 @@ package main
 import (
 	"sync"
 
-	"github.com/weslenng/petssenger/services/user/grpc"
-	"github.com/weslenng/petssenger/services/user/http"
-	"github.com/weslenng/petssenger/services/user/models"
-	"github.com/weslenng/petssenger/services/user/redis"
+	"github.com/nglabo/petssenger/services/user/grpc"
+	"github.com/nglabo/petssenger/services/user/http"
+	"github.com/nglabo/petssenger/services/user/models"
+	"github.com/nglabo/petssenger/services/user/redis"
 )
 
 func main() {

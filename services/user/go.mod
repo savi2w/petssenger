@@ -1,4 +1,4 @@
-module github.com/weslenng/petssenger/services/user
+module github.com/nglabo/petssenger/services/user
 
 go 1.14
 

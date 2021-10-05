@@ -1,5 +1,5 @@
 FROM node:12.15.0-stretch
-LABEL maintainer="weslenng"
+LABEL maintainer="Weslen Guerreiro <omppye@gmail.com>"
 
 RUN apt-get update
 RUN apt-get install -y protobuf-compiler
