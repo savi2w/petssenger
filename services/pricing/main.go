@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 
-	"github.com/nglabo/petssenger/services/pricing/grpc"
-	"github.com/nglabo/petssenger/services/pricing/models"
-	"github.com/nglabo/petssenger/services/pricing/redis"
-	"github.com/nglabo/petssenger/services/pricing/worker"
+	"github.com/omppye-lab/petssenger/services/pricing/grpc"
+	"github.com/omppye-lab/petssenger/services/pricing/models"
+	"github.com/omppye-lab/petssenger/services/pricing/redis"
+	"github.com/omppye-lab/petssenger/services/pricing/worker"
 )
 
 func main() {

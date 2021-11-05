@@ -3,9 +3,9 @@ package worker
 import (
 	"github.com/vmihailenco/taskq/v2"
 	"github.com/vmihailenco/taskq/v2/redisq"
-	"github.com/nglabo/petssenger/services/pricing/config"
-	"github.com/nglabo/petssenger/services/pricing/models"
-	"github.com/nglabo/petssenger/services/pricing/redis"
+	"github.com/omppye-lab/petssenger/services/pricing/config"
+	"github.com/omppye-lab/petssenger/services/pricing/models"
+	"github.com/omppye-lab/petssenger/services/pricing/redis"
 )
 
 var (

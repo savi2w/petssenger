@@ -2,7 +2,7 @@ package redis
 
 import (
 	"github.com/go-redis/redis/v7"
-	"github.com/nglabo/petssenger/services/pricing/config"
+	"github.com/omppye-lab/petssenger/services/pricing/config"
 )
 
 var Client = redis.NewClient(&redis.Options{
