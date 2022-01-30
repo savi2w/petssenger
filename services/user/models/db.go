@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/go-pg/pg/v9"
-	"github.com/omppye-lab/petssenger/services/user/config"
+	"github.com/omppye-tech/petssenger/services/user/config"
 )
 
 var db *pg.DB

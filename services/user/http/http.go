@@ -8,8 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-pg/pg/v9"
-	"github.com/omppye-lab/petssenger/services/user/config"
-	"github.com/omppye-lab/petssenger/services/user/models"
+	"github.com/omppye-tech/petssenger/services/user/config"
+	"github.com/omppye-tech/petssenger/services/user/models"
 )
 
 type User struct {

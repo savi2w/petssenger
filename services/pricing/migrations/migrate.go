@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-pg/migrations/v7"
 	"github.com/go-pg/pg/v9"
-	"github.com/omppye-lab/petssenger/services/pricing/config"
+	"github.com/omppye-tech/petssenger/services/pricing/config"
 )
 
 func main() {

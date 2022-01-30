@@ -1,4 +1,4 @@
-module github.com/omppye-lab/petssenger/services/user
+module github.com/omppye-tech/petssenger/services/user
 
 go 1.14
 

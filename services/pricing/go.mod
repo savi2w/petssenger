@@ -1,4 +1,4 @@
-module github.com/omppye-lab/petssenger/services/pricing
+module github.com/omppye-tech/petssenger/services/pricing
 
 go 1.14
 

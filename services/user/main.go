@@ -3,10 +3,10 @@ package main
 import (
 	"sync"
 
-	"github.com/omppye-lab/petssenger/services/user/grpc"
-	"github.com/omppye-lab/petssenger/services/user/http"
-	"github.com/omppye-lab/petssenger/services/user/models"
-	"github.com/omppye-lab/petssenger/services/user/redis"
+	"github.com/omppye-tech/petssenger/services/user/grpc"
+	"github.com/omppye-tech/petssenger/services/user/http"
+	"github.com/omppye-tech/petssenger/services/user/models"
+	"github.com/omppye-tech/petssenger/services/user/redis"
 )
 
 func main() {

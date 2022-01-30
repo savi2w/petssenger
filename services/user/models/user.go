@@ -2,8 +2,8 @@ package models
 
 import (
 	"github.com/vmihailenco/msgpack/v4"
-	"github.com/omppye-lab/petssenger/services/user/config"
-	"github.com/omppye-lab/petssenger/services/user/redis"
+	"github.com/omppye-tech/petssenger/services/user/config"
+	"github.com/omppye-tech/petssenger/services/user/redis"
 )
 
 type Users struct {
