@@ -1,0 +1,5 @@
+build
+node_modules
+protos/*.d.ts
+protos/*.go
+protos/*.js

@@ -1,0 +1,13 @@
+{
+  "name": "petssenger",
+  "private": true,
+  "scripts": {
+    "build-protos": "./scripts/BUILD.sh",
+    "populate": "./scripts/POPULATE.sh",
+    "test": "./scripts/TEST.sh"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "services/*"
+  ]
+}
